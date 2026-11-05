@@ -1,0 +1,43 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Outfit', system-ui, sans-serif;
+  }
+}
+
+/* Patrón sutil inspirado en el isotipo de Costa Transport */
+.bg-costa-pattern {
+  background-image: radial-gradient(rgba(41, 115, 146, 0.12) 1.5px, transparent 1.5px),
+                    radial-gradient(rgba(141, 24, 36, 0.08) 1.5px, transparent 1.5px);
+  background-size: 32px 32px;
+  background-position: 0 0, 16px 16px;
+}
+
+.bg-costa-mesh {
+  background: radial-gradient(circle at 15% 20%, rgba(41, 115, 146, 0.25) 0%, transparent 45%),
+              radial-gradient(circle at 85% 80%, rgba(141, 24, 36, 0.22) 0%, transparent 45%),
+              linear-gradient(135deg, #071722 0%, #0B2230 50%, #123548 100%);
+}
+
+/* Barra de desplazamiento personalizada con colores de marca */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0B2230;
+}
+::-webkit-scrollbar-thumb {
+  background: #297392;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #8D1824;
+}
