@@ -4,24 +4,19 @@ import {
   Eye,
   Target,
   Gem,
-  ShieldCheck,
-  Award,
   CheckCircle2,
   ExternalLink,
-  FileText,
-  Truck,
-  MapPin,
-  Satellite,
-  Users
+  FileText
 } from 'lucide-react';
-import costaFleetImg from '../assets/COSTA-1.png';
+import costaFleetImg from '../assets/galeria/costa-banner-1.jpg';
+import equipoCompletoImg from '../assets/galeria/equipo-completo.jpg';
+import equipoConductoresImg from '../assets/galeria/equipo-conductores.jpg';
+import equipoAdminImg from '../assets/galeria/equipo-administrativo.jpg';
+import flotaColumbiaImg from '../assets/galeria/flota-columbia.jpg';
 import bascLogo from '../assets/basc.png';
 import premioLogo from '../assets/premio-empresa.jpg';
-import gpsImg from '../assets/servicio-gps.jpg';
-import slide1Img from '../assets/slide-1.jpg';
-import slide2Img from '../assets/slide-2.jpg';
 
-// Sub-componente para las tarjetas interactivas del equipo (con soporte de imagen + video en hover)
+// Sub-componente para las tarjetas interactivas del equipo real de Costa Transport
 const TeamCard = ({ area, title, description, image, videoSrc, badge }) => {
   const videoRef = useRef(null);
   const [videoReady, setVideoReady] = useState(false);
@@ -47,14 +42,14 @@ const TeamCard = ({ area, title, description, image, videoSrc, badge }) => {
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
     >
-      {/* Imagen base de alta calidad */}
+      {/* Imagen real de alta calidad del equipo */}
       <img
         src={image}
         alt={area}
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
       />
 
-      {/* Video opcional que se revela en el hover si el archivo existe */}
+      {/* Video opcional que se revela en el hover */}
       {videoSrc && (
         <video
           ref={videoRef}
@@ -68,7 +63,7 @@ const TeamCard = ({ area, title, description, image, videoSrc, badge }) => {
       )}
 
       {/* Gradiente corporativo superpuesto */}
-      <div className="absolute inset-0 bg-gradient-to-t from-costa-navy via-costa-navy/55 to-transparent opacity-90 group-hover:opacity-95 transition-opacity" />
+      <div className="absolute inset-0 bg-gradient-to-t from-costa-navy via-costa-navy/45 to-transparent opacity-90 group-hover:opacity-95 transition-opacity" />
 
       {/* Badge superior */}
       <div className="absolute top-4 left-4 right-4 flex justify-between items-center">
@@ -100,47 +95,47 @@ const Nosotros = () => {
   const highlights = [
     'Líderes en traslado de contenedores refrigerados (Reefers) y carga general en el Puerto de Paita.',
     'Más de 40 unidades propias monitoreadas por GPS Satelital en tiempo real.',
-    'Servicio especializado para productos hidrobiológicos, agroexportación, carga seca, cama baja y cisterna.',
+    'Servicio especializado para productos congelados, carga seca, agregados en tolvas, cama baja y cisterna.',
     'Estricto control bajo Norma Internacional BASC V6-2022 con cero contaminación en toda la cadena.'
   ];
 
   return (
     <>
-      {/* SECCIÓN 1: QUIÉNES SOMOS / HISTORIA */}
+      {/* SECCIÓN 1: QUIÉNES SOMOS / HISTORIA CON MOSAICO REAL */}
       <section id="nosotros" className="py-20 lg:py-28 bg-white relative overflow-hidden">
-        {/* Decoración de fondo */}
         <div className="absolute top-0 right-0 w-1/3 h-full bg-gradient-to-l from-slate-50 to-transparent pointer-events-none" />
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-            {/* Columna Izquierda: Composición Visual con Foto Real de la Flota */}
+            {/* Columna Izquierda: Composición Mosaico de Fotos Reales */}
             <div className="lg:col-span-6 relative">
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white z-10">
-                <img
-                  src={costaFleetImg}
-                  alt="Flota de Camiones Costa Transport E.I.R.L."
-                  className="w-full h-auto object-cover"
-                />
+              <div className="grid grid-cols-12 gap-4">
+                <div className="col-span-12 rounded-3xl overflow-hidden shadow-2xl border-4 border-white relative z-10">
+                  <img
+                    src={costaFleetImg}
+                    alt="Flota de Camiones Costa Transport E.I.R.L."
+                    className="w-full h-64 sm:h-72 object-cover"
+                  />
+                </div>
+                <div className="col-span-6 rounded-2xl overflow-hidden shadow-lg border-2 border-white relative z-10">
+                  <img
+                    src={equipoCompletoImg}
+                    alt="Equipo de Colaboradores Costa Transport"
+                    className="w-full h-44 object-cover hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+                <div className="col-span-6 rounded-2xl overflow-hidden shadow-lg border-2 border-white relative z-10">
+                  <img
+                    src={flotaColumbiaImg}
+                    alt="Tractocamiones Freightliner Costa Transport"
+                    className="w-full h-44 object-cover hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
               </div>
 
               {/* Marco decorativo con los colores del logo */}
               <div className="absolute -top-4 -left-4 w-32 h-32 bg-costa-red rounded-2xl -z-0 opacity-90" />
               <div className="absolute -bottom-4 -right-4 w-48 h-48 bg-costa-blue rounded-3xl -z-0 opacity-90" />
-
-              {/* Tarjeta flotante de trayectoria */}
-              <div className="mt-6 sm:mt-0 sm:absolute sm:-bottom-6 sm:left-6 z-20 bg-costa-navy text-white p-5 rounded-2xl shadow-xl border border-white/15 flex items-center gap-4 max-w-xs">
-                <div className="w-14 h-14 rounded-xl bg-gradient-to-br from-costa-red to-costa-redLight flex items-center justify-center font-extrabold text-2xl shrink-0 shadow-md">
-                  20+
-                </div>
-                <div>
-                  <span className="text-xs uppercase tracking-wider text-sky-300 font-bold block">
-                    Trayectoria Sólida
-                  </span>
-                  <p className="text-sm font-bold text-white leading-snug">
-                    Años impulsando el Comercio Exterior desde Paita, Piura
-                  </p>
-                </div>
-              </div>
             </div>
 
             {/* Columna Derecha: Información Corporativa */}
@@ -170,7 +165,7 @@ const Nosotros = () => {
                   <strong className="text-slate-900 font-semibold">
                     más de 40 unidades modernas
                   </strong>{' '}
-                  monitoreadas con GPS Satelital las 24 horas para el transporte de productos congelados, carga seca, traslado de materiales, así como unidades especializadas para el servicio de{' '}
+                  monitoreadas con GPS Satelital las 24 horas para el transporte de productos congelados, carga seca, traslado de materiales y agregados en tolvas, así como unidades especializadas para el servicio de{' '}
                   <strong className="text-slate-900 font-semibold">cama baja y cisterna</strong>.
                 </p>
                 <p>
@@ -227,10 +222,9 @@ const Nosotros = () => {
         </div>
       </section>
 
-      {/* SECCIÓN 2: IDENTIDAD CORPORATIVA (Misión, Visión, Objetivos, Valores + Documentos Oficiales) */}
+      {/* SECCIÓN 2: IDENTIDAD CORPORATIVA + EQUIPO REAL */}
       <section id="identidad" className="py-20 lg:py-24 bg-slate-50 bg-costa-pattern relative border-y border-slate-200/70">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          {/* Encabezado */}
           <div className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 bg-costa-red/10 text-costa-red px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider mb-3">
               <img src="/isotipo.png" alt="" className="w-4 h-3.5 object-contain" />
@@ -363,7 +357,6 @@ const Nosotros = () => {
                   ))}
                 </div>
 
-                {/* Enlaces rescatados de la web antigua a Google Drive */}
                 <div className="space-y-2.5 pt-3 border-t border-slate-100">
                   <span className="text-[11px] font-bold uppercase tracking-wider text-slate-400 block">
                     Normativa y Transparencia:
@@ -398,7 +391,7 @@ const Nosotros = () => {
             </div>
           </div>
 
-          {/* Sub-sección: El Equipo y Áreas de Respaldo (Mantenida y mejorada de tu avance) */}
+          {/* Sub-sección: El Equipo y Áreas de Respaldo con Fotos Reales del Equipo */}
           <div className="mt-20">
             <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
               <div>
@@ -406,37 +399,37 @@ const Nosotros = () => {
                   ORGANIZACIÓN Y TALENTO HUMANO
                 </span>
                 <h3 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-                  Áreas que Impulsan Cada Operación
+                  Nuestro Equipo de Colaboradores y Conductores
                 </h3>
               </div>
               <p className="text-slate-600 text-sm sm:text-base max-w-md">
-                Personal altamente calificado, comprometido con la trazabilidad, transparencia administrativa y seguridad vial en cada ruta.
+                Personal altamente calificado y capacitado bajo estándares internacionales BASC, comprometido con la seguridad de cada operación.
               </p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               <TeamCard
-                area="Operaciones"
-                badge="Torre de Control"
-                title="Monitoreo Satelital 24/7"
-                description="Supervisión continua de rutas, control de temperatura en contenedores Reefer y comunicación constante con cada unidad."
-                image={gpsImg}
+                area="Operaciones y Flota"
+                badge="Conductores Calificados"
+                title="Excelencia en Ruta y Monitoreo 24/7"
+                description="Conductores profesionales y supervisores operativos dedicados al traslado seguro y control satelital continuo de cada unidad."
+                image={equipoConductoresImg}
                 videoSrc="/assets/video-operaciones.mp4"
               />
               <TeamCard
-                area="Contabilidad y Gestión"
-                badge="Administración"
-                title="Procesos Transparentes"
-                description="Facturación ágil, liquidación documentaria oportuna y cumplimiento riguroso de normativas tributarias y comerciales."
-                image={slide2Img}
+                area="Administración y Contabilidad"
+                badge="Gestión Corporativa"
+                title="Procesos Transparentes y Ágiles"
+                description="Nuestro equipo administrativo y contable acompaña a cada cliente con atención personalizada, trazabilidad documentaria y eficiencia."
+                image={equipoAdminImg}
                 videoSrc="/assets/video-contabilidad.mp4"
               />
               <TeamCard
-                area="Recursos Humanos"
-                badge="Talento BASC"
-                title="Personal Calificado"
-                description="Conductores profesionales y equipo técnico en constante capacitación bajo estándares de seguridad vial y norma BASC."
-                image={slide1Img}
+                area="Capital Humano BASC"
+                badge="Familia Costa Transport"
+                title="Personal Capacitado y Comprometido"
+                description="Un equipo unido y en constante formación en seguridad vial, prevención de riesgos y cumplimiento de la Norma BASC V6-2022."
+                image={equipoCompletoImg}
                 videoSrc="/assets/video-rrhh.mp4"
               />
             </div>

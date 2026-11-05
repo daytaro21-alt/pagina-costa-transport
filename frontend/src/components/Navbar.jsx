@@ -6,13 +6,11 @@ import {
   MapPin,
   Mail,
   ShieldCheck,
-  Bell,
-  ChevronRight,
-  ExternalLink
+  ChevronRight
 } from 'lucide-react';
 import logoImg from '../assets/Logo.png';
 
-const Navbar = ({ onOpenNotice }) => {
+const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('inicio');
@@ -21,7 +19,7 @@ const Navbar = ({ onOpenNotice }) => {
     const handleScroll = () => {
       setScrolled(window.scrollY > 20);
 
-      const sections = ['inicio', 'nosotros', 'identidad', 'servicios', 'seguridad', 'contacto'];
+      const sections = ['inicio', 'nosotros', 'identidad', 'servicios', 'flota', 'seguridad', 'contacto'];
       const scrollPosition = window.scrollY + 140;
 
       for (const section of sections) {
@@ -46,13 +44,14 @@ const Navbar = ({ onOpenNotice }) => {
     { id: 'nosotros', name: 'Nosotros', href: '#nosotros' },
     { id: 'identidad', name: 'Identidad', href: '#identidad' },
     { id: 'servicios', name: 'Servicios', href: '#servicios' },
+    { id: 'flota', name: 'Flota y Galería', href: '#flota' },
     { id: 'seguridad', name: 'Política BASC', href: '#seguridad' },
     { id: 'contacto', name: 'Contacto', href: '#contacto' },
   ];
 
   return (
     <header className="fixed w-full z-50 top-0 left-0 transition-all duration-300">
-      {/* Top Bar Corporativa (Datos rescatados de la página antigua) */}
+      {/* Top Bar Corporativa */}
       <div
         className={`bg-costa-navy text-slate-200 border-b border-white/10 transition-all duration-300 overflow-hidden ${
           scrolled ? 'max-h-0 opacity-0 border-none' : 'max-h-24 opacity-100 py-2'
@@ -81,20 +80,10 @@ const Navbar = ({ onOpenNotice }) => {
             </span>
           </div>
 
-          {/* Redes sociales y Comunicado Oficial */}
+          {/* Redes sociales */}
           <div className="flex items-center gap-3 ml-auto">
-            {onOpenNotice && (
-              <button
-                onClick={onOpenNotice}
-                className="flex items-center gap-1.5 bg-costa-red/90 hover:bg-costa-red text-white px-2.5 py-1 rounded-full text-[11px] font-semibold transition-all shadow-sm animate-pulse"
-              >
-                <Bell size={11} />
-                <span>Comunicado Oficial</span>
-              </button>
-            )}
-
-            <div className="hidden sm:flex items-center gap-2 border-l border-white/15 pl-3">
-              <span className="text-slate-400 text-[11px]">Síguenos:</span>
+            <div className="flex items-center gap-2">
+              <span className="text-slate-400 text-[11px] hidden sm:inline">Síguenos en:</span>
               <a
                 href="https://www.facebook.com/costatransportEIRL"
                 target="_blank"
@@ -142,14 +131,14 @@ const Navbar = ({ onOpenNotice }) => {
             </a>
 
             {/* Menú de Escritorio */}
-            <div className="hidden lg:flex items-center space-x-1 xl:space-x-2">
+            <div className="hidden lg:flex items-center space-x-1">
               {navLinks.map((link) => {
                 const isActive = activeSection === link.id;
                 return (
                   <a
                     key={link.id}
                     href={link.href}
-                    className={`relative px-3.5 py-2 rounded-lg text-sm font-bold tracking-wide transition-all duration-200 ${
+                    className={`relative px-3 py-2 rounded-lg text-sm font-bold tracking-wide transition-all duration-200 ${
                       isActive
                         ? 'text-costa-blue bg-costa-blue/10'
                         : 'text-slate-700 hover:text-costa-blue hover:bg-slate-100/70'
@@ -157,7 +146,7 @@ const Navbar = ({ onOpenNotice }) => {
                   >
                     {link.name}
                     {isActive && (
-                      <span className="absolute bottom-1 left-3.5 right-3.5 h-0.5 bg-gradient-to-r from-costa-red to-costa-blue rounded-full" />
+                      <span className="absolute bottom-1 left-3 right-3 h-0.5 bg-gradient-to-r from-costa-red to-costa-blue rounded-full" />
                     )}
                   </a>
                 );
@@ -170,7 +159,7 @@ const Navbar = ({ onOpenNotice }) => {
                 href="#contacto"
                 className="hidden xl:inline-flex items-center gap-1.5 text-sm font-bold text-costa-blue hover:text-costa-blueDark px-4 py-2.5 rounded-xl border-2 border-costa-blue/20 hover:border-costa-blue/50 transition-all"
               >
-                Solicitar Cotización
+                Cotizar
               </a>
 
               <a
@@ -179,7 +168,7 @@ const Navbar = ({ onOpenNotice }) => {
                 rel="noopener noreferrer"
                 className="flex items-center gap-2 bg-gradient-to-r from-costa-red to-costa-redLight hover:from-costa-redDark hover:to-costa-red text-white px-5 py-2.5 rounded-xl font-bold text-sm shadow-md shadow-costa-red/25 hover:shadow-lg hover:shadow-costa-red/35 hover:-translate-y-0.5 transition-all duration-200"
               >
-                <Phone size={16} className="animate-bounce" />
+                <Phone size={16} />
                 <span>+51 977 882 764</span>
               </a>
             </div>
@@ -193,7 +182,7 @@ const Navbar = ({ onOpenNotice }) => {
                 className="md:hidden flex items-center gap-1.5 bg-costa-red text-white px-3 py-2 rounded-lg text-xs font-bold shadow-sm"
               >
                 <Phone size={14} />
-                <span>Llamar / WA</span>
+                <span>WhatsApp</span>
               </a>
               <button
                 onClick={() => setIsOpen(!isOpen)}
@@ -229,20 +218,7 @@ const Navbar = ({ onOpenNotice }) => {
                 );
               })}
 
-              <div className="pt-4 mt-4 border-t border-slate-100 flex flex-col gap-2.5">
-                {onOpenNotice && (
-                  <button
-                    onClick={() => {
-                      setIsOpen(false);
-                      onOpenNotice();
-                    }}
-                    className="w-full flex items-center justify-center gap-2 py-2.5 px-4 rounded-xl bg-amber-50 text-costa-red font-bold text-sm border border-costa-red/20"
-                  >
-                    <Bell size={16} />
-                    Ver Comunicado Oficial
-                  </button>
-                )}
-
+              <div className="pt-4 mt-4 border-t border-slate-100">
                 <a
                   href="https://api.whatsapp.com/send?phone=51977882764&text=Hola%20Costa%20Transport,%20deseo%20solicitar%20una%20cotizaci%C3%B3n."
                   target="_blank"

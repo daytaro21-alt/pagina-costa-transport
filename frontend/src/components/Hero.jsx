@@ -8,45 +8,66 @@ import {
   ChevronLeft,
   ChevronRight,
   CheckCircle2,
-  Snowflake,
   PhoneCall
 } from 'lucide-react';
-import slide1 from '../assets/slide-1.jpg';
-import slide2 from '../assets/slide-2.jpg';
-import slide3 from '../assets/slide-3.jpg';
+import slidePanoramica from '../assets/galeria/flota-panoramica.jpg';
+import slideMackReefer from '../assets/galeria/flota-mack-reefer.jpg';
+import slideStacker from '../assets/galeria/costa-stacker.jpg';
+import slideCisterna from '../assets/galeria/costa-cisterna.jpg';
+import slideEquipo from '../assets/galeria/equipo-completo.jpg';
 import bascLogo from '../assets/basc.png';
 import premioLogo from '../assets/premio-empresa.jpg';
 
 const slides = [
   {
     id: 1,
-    image: slide1,
-    tag: 'TRANSPORTE DE CARGA REFRIGERADA Y GENERAL',
-    title: 'Transporte de Carga Pesada y Refrigerada con',
-    highlight: 'Estándares Internacionales',
+    image: slidePanoramica,
+    tag: 'FLOTA MODERNA PROPIA • +40 UNIDADES',
+    title: 'Líderes en Transporte de Carga Pesada y',
+    highlight: 'Contenedores Refrigerados',
     description:
-      'Ofrecemos soluciones integrales de transporte de contenedores refrigerados (Reefers) y fletes desde el Puerto de Paita hacia todo el Perú de forma confiable, puntual y segura.',
-    pills: ['Equipos Genset & Clip-On', 'Cadena de Frío Garantizada', 'Cobertura Nacional']
+      'Más de 20 años moviendo el Comercio Exterior desde el Puerto de Paita hacia todo el Perú con unidades Freightliner, Mack y Volvo monitoreadas por GPS Satelital 24/7.',
+    pills: ['+40 Unidades Operativas', 'Plataforma GPS Propia', 'Cobertura Nacional']
   },
   {
     id: 2,
-    image: slide2,
-    tag: 'FLOTA MODERNA Y EQUIPOS ESPECIALIZADOS',
-    title: 'Más de 40 Unidades Propias con',
-    highlight: 'Monitoreo Satelital 24/7',
+    image: slideMackReefer,
+    tag: 'CADENA DE FRÍO GARANTIZADA',
+    title: 'Especialistas en Carga Refrigerada con',
+    highlight: 'Equipos Genset y Clip-On',
     description:
-      'Contamos con una flota moderna de tractocamiones, portacontenedores, tolvas, cama baja, cisterna y maquinaria Reach Stacker controlada en tiempo real por nuestra plataforma GPS.',
-    pills: ['Plataforma GPS Propia', '+40 Unidades Operativas', 'Mantenimiento Preventivo']
+      'Transportamos contenedores refrigerados (Reefers) de 40 pies con generadores Underslung, Genset y Clip-On de última tecnología para conservar la temperatura exacta.',
+    pills: ['Equipos Genset & Underslung', 'Control Térmico Continuo', 'Exportación Hidrobiológica y Agro']
   },
   {
     id: 3,
-    image: slide3,
-    tag: 'SEGURIDAD EN EL TRASLADO • NORMA BASC V6-2022',
-    title: 'Más de 20 Años Impulsando el',
-    highlight: 'Comercio Exterior Seguro',
+    image: slideStacker,
+    tag: 'MAQUINARIA PORTUARIA Y ALMACENAJE',
+    title: 'Alquiler de Reach Stacker, Montacargas y',
+    highlight: 'Almacén en Paita',
     description:
-      'Respaldados por la Certificación Internacional BASC y reconocidos consecutivamente con el Premio Empresa Peruana del Año, garantizando cero contaminación en su carga.',
-    pills: ['Certificación BASC Vigente', 'Seguro Integral de Carga', 'Operaciones Portuarias']
+      'Disponibilidad inmediata de maquinaria Terex Reach Stacker, contenedores Reefer de 40 pies y amplios almacenes acondicionados para tuberías y contenedores.',
+    pills: ['Reach Stacker Terex', 'Alquiler de Reefers 40 Pies', 'Almacén de Tuberías y Contenedores']
+  },
+  {
+    id: 4,
+    image: slideCisterna,
+    tag: 'DIVERSIDAD OPERATIVA DE ALTO TONELAJE',
+    title: 'Transporte en Tolvas, Cama Baja,',
+    highlight: 'Granel y Carga Líquida',
+    description:
+      'Soluciones logísticas especializadas con unidades de cama baja, tolvas para agregados y camiones cisterna con Seguro de Carga, Contenedores y Responsabilidad Civil.',
+    pills: ['Tolvas y Cama Baja', 'Unidades Cisterna', 'Triple Cobertura de Seguros']
+  },
+  {
+    id: 5,
+    image: slideEquipo,
+    tag: 'SEGURIDAD Y CAPITAL HUMANO • NORMA BASC V6-2022',
+    title: 'Un Equipo Calificado Comprometido con tu',
+    highlight: 'Seguridad Logística',
+    description:
+      'Conductores profesionales y personal administrativo altamente capacitado bajo estándares internacionales BASC y reconocidos con el Premio Empresa Peruana del Año.',
+    pills: ['Certificación BASC Vigente', 'Personal Calificado', 'Premio Empresa Peruana del Año']
   }
 ];
 
@@ -60,7 +81,7 @@ const stats = [
   {
     icon: Truck,
     value: '+40 Unidades',
-    label: 'Flota moderna para Reefers, carga seca y cama baja',
+    label: 'Flota moderna para Reefers, tolvas, cisterna y cama baja',
     accent: 'from-costa-blue to-costa-blueLight'
   },
   {
@@ -83,7 +104,7 @@ const Hero = () => {
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrent((prev) => (prev + 1) % slides.length);
-    }, 6500);
+    }, 6000);
     return () => clearInterval(timer);
   }, []);
 
@@ -108,13 +129,12 @@ const Hero = () => {
             alt={slide.tag}
             className="w-full h-full object-cover object-center"
           />
-          {/* Gradiente corporativo superpuesto con la paleta del logo */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#06151f]/95 via-[#0B2230]/85 to-[#297392]/40" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#06151f]/95 via-[#0B2230]/80 to-[#297392]/35" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#06151f] via-transparent to-[#06151f]/60" />
         </div>
       ))}
 
-      {/* Elementos decorativos de marca (líneas diagonales inspiradas en el isotipo) */}
+      {/* Elementos decorativos de marca */}
       <div className="absolute -right-24 top-1/4 w-96 h-96 bg-costa-blue/20 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute -left-24 bottom-1/4 w-96 h-96 bg-costa-red/20 rounded-full blur-3xl pointer-events-none" />
 
@@ -123,7 +143,6 @@ const Hero = () => {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           {/* Columna Izquierda: Texto e Interacción */}
           <div className="lg:col-span-8 text-left">
-            {/* Etiqueta Superior */}
             <div className="inline-flex items-center gap-2.5 bg-white/10 backdrop-blur-md border border-white/15 px-4 py-1.5 rounded-full mb-6 shadow-lg">
               <span className="w-2.5 h-2.5 rounded-full bg-costa-red animate-ping" />
               <span className="w-2.5 h-2.5 rounded-full bg-costa-red -ml-5" />
@@ -132,7 +151,6 @@ const Hero = () => {
               </span>
             </div>
 
-            {/* Título Principal */}
             <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.12] tracking-tight mb-6 drop-shadow-sm">
               {activeSlide.title}{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#5ec2eb] via-sky-200 to-white">
@@ -140,7 +158,6 @@ const Hero = () => {
               </span>
             </h1>
 
-            {/* Descripción */}
             <p className="text-base sm:text-lg lg:text-xl text-slate-200/95 mb-8 max-w-2xl leading-relaxed font-normal">
               {activeSlide.description}
             </p>
@@ -164,23 +181,30 @@ const Hero = () => {
                 href="#servicios"
                 className="group inline-flex items-center gap-3 bg-gradient-to-r from-costa-red to-costa-redLight hover:from-costa-redDark hover:to-costa-red text-white font-bold py-4 px-8 rounded-xl text-base transition-all duration-300 shadow-glow-red hover:-translate-y-0.5"
               >
-                <span>Conoce Nuestros Servicios</span>
+                <span>Nuestros Servicios</span>
                 <ArrowRight size={19} className="transition-transform duration-300 group-hover:translate-x-1" />
+              </a>
+
+              <a
+                href="#flota"
+                className="inline-flex items-center gap-2.5 bg-costa-blue/80 hover:bg-costa-blue backdrop-blur-md text-white border border-sky-300/30 font-bold py-4 px-7 rounded-xl text-base transition-all duration-300 hover:-translate-y-0.5"
+              >
+                <span>Ver Galería de Flota</span>
               </a>
 
               <a
                 href="https://api.whatsapp.com/send?phone=51977882764&text=Hola%20Costa%20Transport,%20quisiera%20cotizar%20un%20servicio%20de%20transporte%20de%20carga."
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2.5 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/25 font-bold py-4 px-7 rounded-xl text-base transition-all duration-300 hover:-translate-y-0.5"
+                className="inline-flex items-center gap-2.5 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white border border-white/25 font-bold py-4 px-6 rounded-xl text-base transition-all duration-300 hover:-translate-y-0.5"
               >
                 <PhoneCall size={18} className="text-[#5ec2eb]" />
-                <span>Cotizar por WhatsApp</span>
+                <span>WhatsApp</span>
               </a>
             </div>
           </div>
 
-          {/* Columna Derecha: Tarjeta Flotante de Certificaciones Reales */}
+          {/* Columna Derecha: Tarjeta Flotante de Certificaciones Reales + Miniaturas */}
           <div className="lg:col-span-4 flex flex-col items-start lg:items-end">
             <div className="w-full max-w-sm bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 shadow-2xl text-white">
               <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/15">
@@ -195,77 +219,84 @@ const Hero = () => {
                 </span>
               </div>
 
-              <div className="space-y-4">
-                {/* Certificación BASC */}
-                <div className="flex items-center gap-4 bg-white/95 text-slate-900 p-3.5 rounded-xl shadow-md">
+              <div className="space-y-3.5">
+                <div className="flex items-center gap-4 bg-white/95 text-slate-900 p-3 rounded-xl shadow-md">
                   <img
                     src={bascLogo}
                     alt="Certificación Internacional BASC"
-                    className="w-14 h-14 object-contain shrink-0"
+                    className="w-12 h-12 object-contain shrink-0"
                   />
                   <div>
-                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-costa-blue block">
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-costa-blue block">
                       Norma BASC V6-2022
                     </span>
                     <h3 className="text-sm font-bold text-slate-900 leading-tight">
                       Business Alliance for Secure Commerce
                     </h3>
-                    <p className="text-xs text-slate-600 mt-0.5 font-medium">
+                    <p className="text-[11px] text-slate-600 mt-0.5 font-medium">
                       Código: PERLIM00726-1-2 • Paita
                     </p>
                   </div>
                 </div>
 
-                {/* Premio Empresa Peruana del Año */}
-                <div className="flex items-center gap-4 bg-white/95 text-slate-900 p-3.5 rounded-xl shadow-md">
+                <div className="flex items-center gap-4 bg-white/95 text-slate-900 p-3 rounded-xl shadow-md">
                   <img
                     src={premioLogo}
                     alt="Premio Empresa Peruana del Año"
-                    className="w-14 h-14 object-contain rounded-full shrink-0"
+                    className="w-12 h-12 object-contain rounded-full shrink-0"
                   />
                   <div>
-                    <span className="text-[11px] font-extrabold uppercase tracking-wider text-costa-red block">
+                    <span className="text-[10px] font-extrabold uppercase tracking-wider text-costa-red block">
                       Galardón Nacional
                     </span>
                     <h3 className="text-sm font-bold text-slate-900 leading-tight">
                       Premio Empresa Peruana del Año
                     </h3>
-                    <p className="text-xs text-slate-600 mt-0.5 font-medium">
+                    <p className="text-[11px] text-slate-600 mt-0.5 font-medium">
                       Reconocimiento consecutivo a la excelencia
                     </p>
                   </div>
                 </div>
               </div>
 
-              {/* Controles del Carrusel dentro de la tarjeta */}
-              <div className="mt-6 pt-4 border-t border-white/15 flex items-center justify-between">
-                <div className="flex items-center gap-2">
+              {/* Miniaturas interactivas del carrusel */}
+              <div className="mt-5 pt-4 border-t border-white/15">
+                <div className="grid grid-cols-5 gap-1.5 mb-3">
                   {slides.map((s, idx) => (
                     <button
                       key={s.id}
                       onClick={() => setCurrent(idx)}
-                      aria-label={`Ir al slide ${idx + 1}`}
-                      className={`h-2 rounded-full transition-all duration-300 ${
-                        idx === current ? 'w-8 bg-costa-redLight' : 'w-2 bg-white/40 hover:bg-white/70'
+                      className={`relative h-11 rounded-lg overflow-hidden border-2 transition-all ${
+                        idx === current
+                          ? 'border-costa-redLight scale-105 shadow-md'
+                          : 'border-transparent opacity-60 hover:opacity-100'
                       }`}
-                    />
+                    >
+                      <img src={s.image} alt="" className="w-full h-full object-cover" />
+                    </button>
                   ))}
                 </div>
-                <div className="flex items-center gap-2">
-                  <button
-                    onClick={prevSlide}
-                    aria-label="Anterior slide"
-                    className="p-2 rounded-lg bg-white/10 hover:bg-costa-blue text-white transition-colors"
-                  >
-                    <ChevronLeft size={16} />
-                  </button>
-                  <button
-                    onClick={nextSlide}
-                    aria-label="Siguiente slide"
-                    className="p-2 rounded-lg bg-white/10 hover:bg-costa-blue text-white transition-colors"
-                  >
-                    <ChevronRight size={16} />
-                  </button>
+
+                <div className="flex items-center justify-between">
+                  <span className="text-xs text-slate-300 font-semibold">
+                     Vista {current + 1} de {slides.length}
+                  </span>
+                  <div className="flex items-center gap-2">
+                    <button
+                      onClick={prevSlide}
+                      aria-label="Anterior slide"
+                      className="p-1.5 rounded-lg bg-white/10 hover:bg-costa-blue text-white transition-colors"
+                    >
+                      <ChevronLeft size={16} />
+                    </button>
+                    <button
+                      onClick={nextSlide}
+                      aria-label="Siguiente slide"
+                      className="p-1.5 rounded-lg bg-white/10 hover:bg-costa-blue text-white transition-colors"
+                    >
+                      <ChevronRight size={16} />
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>

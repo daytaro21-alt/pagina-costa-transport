@@ -15,8 +15,9 @@ build/
 backend/.env
 frontend/.env
 
-# Archivos de referencia antiguos (pesados / no necesarios en producción)
+# Archivos de referencia antiguos y fotos originales sin comprimir (las optimizadas van en frontend/src/assets)
 Pagina antigua/
+imagenes/
 
 # Logs y archivos del sistema
 npm-debug.log*

@@ -11,7 +11,7 @@ import logoImg from '../assets/Logo.png';
 import bascLogo from '../assets/basc.png';
 import premioLogo from '../assets/premio-empresa.jpg';
 
-const Footer = ({ onOpenNotice }) => {
+const Footer = () => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -58,6 +58,7 @@ const Footer = ({ onOpenNotice }) => {
                 { label: 'Nosotros', href: '#nosotros' },
                 { label: 'Identidad Corporativa', href: '#identidad' },
                 { label: 'Nuestros Servicios', href: '#servicios' },
+                { label: 'Flota y Galería', href: '#flota' },
                 { label: 'Política BASC', href: '#seguridad' },
                 { label: 'Contáctanos', href: '#contacto' },
               ].map((item) => (
@@ -71,17 +72,6 @@ const Footer = ({ onOpenNotice }) => {
                   </a>
                 </li>
               ))}
-              {onOpenNotice && (
-                <li>
-                  <button
-                    onClick={onOpenNotice}
-                    className="text-amber-300 hover:text-amber-200 font-semibold transition-colors flex items-center gap-1.5"
-                  >
-                    <span className="w-1.5 h-1.5 rounded-full bg-amber-400" />
-                    Comunicado Oficial
-                  </button>
-                </li>
-              )}
             </ul>
           </div>
 
