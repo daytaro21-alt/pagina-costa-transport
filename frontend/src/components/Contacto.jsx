@@ -32,7 +32,8 @@ const Contacto = () => {
     setStatus('sending');
 
     try {
-      await fetch('http://localhost:3001/api/contacto', {
+      const apiBase = (import.meta.env.VITE_API_URL || 'http://localhost:3001').replace(/\/$/, '');
+      await fetch(`${apiBase}/api/contacto`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
