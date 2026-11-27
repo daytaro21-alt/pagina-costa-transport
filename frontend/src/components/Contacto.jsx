@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import {
   MapPin,
   Phone,
@@ -13,6 +13,7 @@ import Reveal from './Reveal';
 import { enviarRegistroASheets, fechaHoraPeru } from '../config/sheets';
 
 const Contacto = () => {
+  const formRef = useRef(null);
   const [formData, setFormData] = useState({
     fname: '',
     ruc: '',
@@ -33,21 +34,27 @@ const Contacto = () => {
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
+  const registrarCotizacion = (canal = 'Web') =>
+    enviarRegistroASheets({
+      tipoRegistro: 'cotizacion',
+      fecha: fechaHoraPeru(),
+      nombre: formData.fname,
+      ruc: formData.ruc,
+      email: formData.email,
+      telefono: formData.phone,
+      asunto: formData.subject,
+      mensaje:
+        canal === 'WhatsApp'
+          ? `[Enviado vía WhatsApp] ${formData.message}`
+          : formData.message
+    });
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setStatus('sending');
 
     try {
-      await enviarRegistroASheets({
-        tipoRegistro: 'cotizacion',
-        fecha: fechaHoraPeru(),
-        nombre: formData.fname,
-        ruc: formData.ruc,
-        email: formData.email,
-        telefono: formData.phone,
-        asunto: formData.subject,
-        mensaje: formData.message
-      });
+      await registrarCotizacion('Web');
     } catch {
       // Mantenemos el flujo de confirmación y opción de WhatsApp
     }
@@ -55,12 +62,24 @@ const Contacto = () => {
     setStatus('success');
   };
 
-  const sendViaWhatsApp = () => {
+  const openWhatsApp = () => {
     const text = `Hola Costa Transport, mi nombre es *${formData.fname || 'Cliente'}*.\n• *RUC:* ${formData.ruc || 'No especificado'}\n• *Teléfono:* ${formData.phone}\n• *Correo:* ${formData.email}\n• *Servicio:* ${formData.subject}\n• *Mensaje:* ${formData.message}`;
     window.open(
       `https://api.whatsapp.com/send?phone=51977882764&text=${encodeURIComponent(text)}`,
-      '_blank'
+      '_blank',
+      'noopener,noreferrer'
     );
+  };
+
+  const sendViaWhatsAppFromForm = () => {
+    if (formRef.current && !formRef.current.reportValidity()) {
+      return;
+    }
+    registrarCotizacion('WhatsApp').catch(() => {
+      // No bloqueamos la apertura de WhatsApp si falla la red
+    });
+    openWhatsApp();
+    setStatus('success');
   };
 
   return (
@@ -244,7 +263,7 @@ const Contacto = () => {
                 <div className="pt-3 flex flex-wrap justify-center gap-3">
                   <button
                     type="button"
-                    onClick={sendViaWhatsApp}
+                    onClick={openWhatsApp}
                     className="inline-flex items-center gap-2 bg-costa-red hover:bg-costa-redLight text-white font-bold px-6 py-3 rounded-xl text-sm shadow-md transition-all"
                   >
                     <MessageSquare size={17} />
@@ -270,7 +289,7 @@ const Contacto = () => {
                 </div>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
                     <label htmlFor="fname" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
@@ -400,7 +419,8 @@ const Contacto = () => {
 
                   <button
                     type="button"
-                    onClick={sendViaWhatsApp}
+                    onClick={sendViaWhatsAppFromForm}
+                    disabled={status === 'sending'}
                     className="w-full sm:w-auto inline-flex items-center justify-center gap-2 bg-costa-red hover:bg-costa-redLight text-white font-bold py-4 px-6 rounded-xl text-sm sm:text-base shadow-md transition-all hover:-translate-y-0.5"
                   >
                     <Phone size={17} />
