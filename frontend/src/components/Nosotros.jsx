@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Rocket,
   Eye,
@@ -6,7 +6,10 @@ import {
   Gem,
   CheckCircle2,
   ExternalLink,
-  FileText
+  FileText,
+  Play,
+  X,
+  Film
 } from 'lucide-react';
 import costaFleetImg from '../assets/galeria/editada-03-patio-reefer-alto.jpg';
 import equipoCompletoImg from '../assets/galeria/equipo-completo.jpg';
@@ -15,32 +18,50 @@ import equipoAdminImg from '../assets/galeria/equipo-administrativo.jpg';
 import flotaMackImg from '../assets/galeria/editada-04-mack-plataforma.jpg';
 import bascLogo from '../assets/basc.png';
 import premioLogo from '../assets/premio-empresa.jpg';
+import Reveal from './Reveal';
 
-// Sub-componente para las tarjetas interactivas del equipo real de Costa Transport
-const TeamCard = ({ area, title, description, image, videoSrc, badge }) => {
-  const videoRef = useRef(null);
-  const [videoReady, setVideoReady] = useState(false);
+const teamAreas = [
+  {
+    id: 'operaciones',
+    area: 'Operaciones y Flota',
+    badge: 'Conductores Calificados',
+    title: 'Excelencia en Ruta y Monitoreo 24/7',
+    description:
+      'Conductores profesionales y supervisores operativos dedicados al traslado seguro y control satelital continuo de cada unidad.',
+    image: equipoConductoresImg,
+    videoSrc: '/videos/video-operaciones.mp4'
+  },
+  {
+    id: 'contabilidad',
+    area: 'Administración y Contabilidad',
+    badge: 'Gestión Corporativa',
+    title: 'Procesos Transparentes y Ágiles',
+    description:
+      'Nuestro equipo administrativo y contable acompaña a cada cliente con atención personalizada, trazabilidad documentaria y eficiencia.',
+    image: equipoAdminImg,
+    videoSrc: '/videos/video-contabilidad.mp4'
+  },
+  {
+    id: 'rrhh',
+    area: 'Capital Humano BASC',
+    badge: 'Familia Costa Transport',
+    title: 'Personal Capacitado y Comprometido',
+    description:
+      'Un equipo unido y en constante formación en seguridad vial, prevención de riesgos y cumplimiento de la Norma BASC V6-2022.',
+    image: equipoCompletoImg,
+    videoSrc: '/videos/video-rrhh.mp4'
+  }
+];
 
-  const handleMouseEnter = () => {
-    if (videoRef.current && videoReady) {
-      videoRef.current.play().catch(() => {});
-      videoRef.current.style.opacity = 1;
-    }
-  };
-
-  const handleMouseLeave = () => {
-    if (videoRef.current && videoReady) {
-      videoRef.current.pause();
-      videoRef.current.currentTime = 0;
-      videoRef.current.style.opacity = 0;
-    }
-  };
+// Sub-componente para las tarjetas interactivas con reproducción de video al hacer clic
+const TeamCard = ({ item, onSelectVideo }) => {
+  const { area, title, description, image, badge } = item;
 
   return (
-    <div
-      className="relative w-full h-96 rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover group cursor-pointer border border-slate-200/80"
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
+    <button
+      type="button"
+      onClick={() => onSelectVideo(item)}
+      className="relative w-full h-96 rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover group cursor-pointer border border-slate-200/80 text-left focus:outline-none focus:ring-2 focus:ring-costa-blue focus:ring-offset-2"
     >
       {/* Imagen real de alta calidad del equipo */}
       <img
@@ -49,31 +70,25 @@ const TeamCard = ({ area, title, description, image, videoSrc, badge }) => {
         className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
       />
 
-      {/* Video opcional que se revela en el hover */}
-      {videoSrc && (
-        <video
-          ref={videoRef}
-          src={videoSrc}
-          muted
-          loop
-          playsInline
-          onCanPlay={() => setVideoReady(true)}
-          className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500"
-        />
-      )}
-
       {/* Gradiente corporativo superpuesto */}
-      <div className="absolute inset-0 bg-gradient-to-t from-costa-navy via-costa-navy/45 to-transparent opacity-90 group-hover:opacity-95 transition-opacity" />
+      <div className="absolute inset-0 bg-gradient-to-t from-costa-navy via-costa-navy/50 to-costa-navy/15 opacity-90 group-hover:opacity-95 transition-opacity" />
 
       {/* Badge superior */}
-      <div className="absolute top-4 left-4 right-4 flex justify-between items-center">
-        <span className="inline-flex items-center gap-1.5 bg-costa-red/90 backdrop-blur-md text-white text-xs font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
-          <span className="w-1.5 h-1.5 rounded-full bg-white" />
+      <div className="absolute top-4 left-4 right-4 flex justify-between items-start gap-2">
+        <span className="inline-flex items-center gap-1.5 bg-costa-red/90 backdrop-blur-md text-white text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md leading-tight">
+          <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0" />
           {area}
         </span>
-        <span className="bg-white/15 backdrop-blur-md border border-white/20 text-white text-[11px] font-semibold px-2.5 py-1 rounded-lg">
+        <span className="bg-white/15 backdrop-blur-md border border-white/20 text-white text-[11px] font-semibold px-2.5 py-1 rounded-lg shrink-0">
           {badge}
         </span>
+      </div>
+
+      {/* Botón central de Play al pasar el cursor / indicador visible */}
+      <div className="absolute inset-0 flex items-center justify-center pb-24 pointer-events-none">
+        <div className="w-14 h-14 rounded-full bg-white/20 group-hover:bg-costa-red backdrop-blur-md border-2 border-white/60 group-hover:border-white flex items-center justify-center text-white shadow-2xl transition-all duration-300 group-hover:scale-110">
+          <Play size={22} className="fill-white ml-0.5" />
+        </div>
       </div>
 
       {/* Contenido inferior */}
@@ -83,15 +98,123 @@ const TeamCard = ({ area, title, description, image, videoSrc, badge }) => {
         <p className="text-slate-200 text-sm mt-2 leading-relaxed">
           {description}
         </p>
-        <p className="text-sky-300 text-xs font-semibold italic mt-3 pt-3 border-t border-white/15 flex items-center justify-between">
-          <span>“El respaldo humano detrás de cada kilómetro.”</span>
-        </p>
+        <div className="text-sky-300 text-xs font-semibold mt-3 pt-3 border-t border-white/15 flex items-center justify-between gap-2">
+          <span className="italic">“El respaldo humano detrás de cada kilómetro.”</span>
+          <span className="inline-flex items-center gap-1 text-white bg-white/15 group-hover:bg-costa-blue px-2.5 py-1 rounded-full text-[11px] font-bold shrink-0 transition-colors">
+            <Play size={10} className="fill-current" />
+            Ver video
+          </span>
+        </div>
+      </div>
+    </button>
+  );
+};
+
+// Modal reproductor de video del área (con vista previa elegante mientras se suben los MP4)
+const VideoAreaModal = ({ item, onClose }) => {
+  const [videoError, setVideoError] = useState(false);
+
+  useEffect(() => {
+    const handleEsc = (e) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', handleEsc);
+    return () => {
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', handleEsc);
+    };
+  }, [onClose]);
+
+  return (
+    <div
+      className="fixed inset-0 z-[60] bg-costa-navy/90 backdrop-blur-md flex items-center justify-center p-4"
+      onClick={onClose}
+      role="dialog"
+      aria-modal="true"
+      aria-label={`Video institucional: ${item.area}`}
+    >
+      <div
+        className="w-full max-w-4xl bg-costa-navy rounded-3xl overflow-hidden shadow-2xl border border-white/15 animate-modal-in"
+        onClick={(e) => e.stopPropagation()}
+      >
+        {/* Cabecera del Modal */}
+        <div className="px-6 py-4 bg-costa-navy border-b border-white/10 flex items-center justify-between gap-4">
+          <div className="flex items-center gap-3">
+            <span className="inline-flex items-center gap-1.5 bg-costa-red text-white text-[11px] font-extrabold uppercase tracking-wider px-3 py-1 rounded-full">
+              {item.area}
+            </span>
+            <h4 className="text-white font-bold text-sm sm:text-base hidden sm:block">
+              {item.title}
+            </h4>
+          </div>
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Cerrar video"
+            className="w-9 h-9 rounded-xl bg-white/10 hover:bg-costa-red text-white flex items-center justify-center transition-colors"
+          >
+            <X size={18} />
+          </button>
+        </div>
+
+        {/* Reproductor o pantalla de próximamente */}
+        <div className="relative bg-black aspect-video w-full flex items-center justify-center overflow-hidden">
+          {!videoError ? (
+            <video
+              key={item.videoSrc}
+              src={item.videoSrc}
+              poster={item.image}
+              controls
+              autoPlay
+              playsInline
+              onError={() => setVideoError(true)}
+              className="w-full h-full object-contain bg-black"
+            />
+          ) : (
+            <div className="relative w-full h-full flex items-center justify-center">
+              <img
+                src={item.image}
+                alt={item.area}
+                className="absolute inset-0 w-full h-full object-cover opacity-35"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-costa-navy via-costa-navy/75 to-costa-navy/50" />
+              <div className="relative z-10 text-center px-6 max-w-lg space-y-4">
+                <div className="w-16 h-16 rounded-2xl bg-costa-blue/30 border border-sky-300/40 text-sky-300 flex items-center justify-center mx-auto shadow-lg">
+                  <Film size={30} />
+                </div>
+                <span className="inline-block px-3.5 py-1 rounded-full bg-costa-red/90 text-white text-xs font-extrabold uppercase tracking-widest">
+                  Video Institucional Próximamente
+                </span>
+                <h3 className="text-xl sm:text-2xl font-extrabold text-white">
+                  {item.area} — Costa Transport E.I.R.L.
+                </h3>
+                <p className="text-slate-200 text-sm leading-relaxed">
+                  Estamos produciendo el video institucional de esta área para mostrarte de cerca nuestras operaciones y equipo en Paita. Muy pronto estará disponible aquí.
+                </p>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Pie informativo */}
+        <div className="px-6 py-4 bg-[#071722] flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs text-slate-300">
+          <p>{item.description}</p>
+          <button
+            type="button"
+            onClick={onClose}
+            className="px-4 py-2 rounded-xl bg-white/10 hover:bg-costa-blue text-white font-bold transition-colors shrink-0 self-end sm:self-auto"
+          >
+            Cerrar
+          </button>
+        </div>
       </div>
     </div>
   );
 };
 
 const Nosotros = () => {
+  const [activeVideo, setActiveVideo] = useState(null);
   const highlights = [
     'Líderes en traslado de contenedores refrigerados (Reefers) y carga general en el Puerto de Paita.',
     'Más de 40 unidades propias monitoreadas por GPS Satelital en tiempo real.',
@@ -108,13 +231,13 @@ const Nosotros = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             {/* Columna Izquierda: Composición Mosaico de Fotos Reales */}
-            <div className="lg:col-span-6 relative">
+            <Reveal direction="left" className="lg:col-span-6 relative">
               <div className="grid grid-cols-12 gap-4">
                 <div className="col-span-12 rounded-3xl overflow-hidden shadow-2xl border-4 border-white relative z-10">
                   <img
                     src={costaFleetImg}
                     alt="Flota de Camiones Costa Transport E.I.R.L."
-                    className="w-full h-64 sm:h-72 object-cover"
+                    className="w-full h-64 sm:h-72 object-cover hover:scale-105 transition-transform duration-700"
                   />
                 </div>
                 <div className="col-span-6 rounded-2xl overflow-hidden shadow-lg border-2 border-white relative z-10">
@@ -136,10 +259,10 @@ const Nosotros = () => {
               {/* Marco decorativo con los colores del logo */}
               <div className="absolute -top-4 -left-4 w-32 h-32 bg-costa-red rounded-2xl -z-0 opacity-90" />
               <div className="absolute -bottom-4 -right-4 w-48 h-48 bg-costa-blue rounded-3xl -z-0 opacity-90" />
-            </div>
+            </Reveal>
 
             {/* Columna Derecha: Información Corporativa */}
-            <div className="lg:col-span-6">
+            <Reveal direction="right" delay={120} className="lg:col-span-6">
               <div className="inline-flex items-center gap-2 bg-costa-blue/10 text-costa-blue px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider mb-4">
                 <img src="/isotipo.png" alt="" className="w-4 h-3.5 object-contain" />
                 <span>Sobre Costa Transport E.I.R.L.</span>
@@ -217,7 +340,7 @@ const Nosotros = () => {
                   </div>
                 </div>
               </div>
-            </div>
+            </Reveal>
           </div>
         </div>
       </section>
@@ -225,7 +348,7 @@ const Nosotros = () => {
       {/* SECCIÓN 2: IDENTIDAD CORPORATIVA + EQUIPO REAL */}
       <section id="identidad" className="py-20 lg:py-24 bg-slate-50 bg-costa-pattern relative border-y border-slate-200/70">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center max-w-3xl mx-auto mb-16">
+          <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-16">
             <div className="inline-flex items-center gap-2 bg-costa-red/10 text-costa-red px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider mb-3">
               <img src="/isotipo.png" alt="" className="w-4 h-3.5 object-contain" />
               <span>Pilares Institucionales</span>
@@ -236,12 +359,13 @@ const Nosotros = () => {
             <p className="mt-3 text-base sm:text-lg text-slate-600">
               Guiados por la excelencia operativa, la ética empresarial y el firme compromiso con cada cliente en toda la cadena logística.
             </p>
-          </div>
+          </Reveal>
 
           {/* Grid de 4 Tarjetas: Misión, Visión, Objetivos y Valores */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-7">
             {/* Tarjeta 1: Misión */}
-            <div className="group bg-white rounded-2xl shadow-card hover:shadow-card-hover border border-slate-200/80 overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1.5">
+            <Reveal direction="up" delay={0} className="flex">
+            <div className="group bg-white rounded-2xl shadow-card hover:shadow-card-hover border border-slate-200/80 overflow-hidden flex flex-col w-full transition-all duration-300 hover:-translate-y-1.5">
               <div className="bg-gradient-to-br from-costa-red to-costa-redDark group-hover:from-costa-blue group-hover:to-costa-blueDark transition-colors duration-500 p-6 text-white relative overflow-hidden">
                 <div className="w-12 h-12 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center mb-4">
                   <Rocket size={24} className="text-white" />
@@ -266,9 +390,11 @@ const Nosotros = () => {
                 </div>
               </div>
             </div>
+            </Reveal>
 
             {/* Tarjeta 2: Visión */}
-            <div className="group bg-white rounded-2xl shadow-card hover:shadow-card-hover border border-slate-200/80 overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1.5">
+            <Reveal direction="up" delay={90} className="flex">
+            <div className="group bg-white rounded-2xl shadow-card hover:shadow-card-hover border border-slate-200/80 overflow-hidden flex flex-col w-full transition-all duration-300 hover:-translate-y-1.5">
               <div className="bg-gradient-to-br from-costa-blue to-costa-blueDark group-hover:from-costa-red group-hover:to-costa-redDark transition-colors duration-500 p-6 text-white relative overflow-hidden">
                 <div className="w-12 h-12 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center mb-4">
                   <Eye size={24} className="text-white" />
@@ -293,9 +419,11 @@ const Nosotros = () => {
                 </div>
               </div>
             </div>
+            </Reveal>
 
             {/* Tarjeta 3: Objetivos */}
-            <div className="group bg-white rounded-2xl shadow-card hover:shadow-card-hover border border-slate-200/80 overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1.5">
+            <Reveal direction="up" delay={180} className="flex">
+            <div className="group bg-white rounded-2xl shadow-card hover:shadow-card-hover border border-slate-200/80 overflow-hidden flex flex-col w-full transition-all duration-300 hover:-translate-y-1.5">
               <div className="bg-gradient-to-br from-costa-red to-costa-redDark group-hover:from-costa-blue group-hover:to-costa-blueDark transition-colors duration-500 p-6 text-white relative overflow-hidden">
                 <div className="w-12 h-12 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center mb-4">
                   <Target size={24} className="text-white" />
@@ -327,9 +455,11 @@ const Nosotros = () => {
                 </ul>
               </div>
             </div>
+            </Reveal>
 
             {/* Tarjeta 4: Valores Corporativos + Documentos Oficiales */}
-            <div className="group bg-white rounded-2xl shadow-card hover:shadow-card-hover border border-slate-200/80 overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1.5">
+            <Reveal direction="up" delay={270} className="flex">
+            <div className="group bg-white rounded-2xl shadow-card hover:shadow-card-hover border border-slate-200/80 overflow-hidden flex flex-col w-full transition-all duration-300 hover:-translate-y-1.5">
               <div className="bg-gradient-to-br from-costa-blue to-costa-blueDark group-hover:from-costa-red group-hover:to-costa-redDark transition-colors duration-500 p-6 text-white relative overflow-hidden">
                 <div className="w-12 h-12 rounded-xl bg-white/15 backdrop-blur-sm flex items-center justify-center mb-4">
                   <Gem size={24} className="text-white" />
@@ -389,11 +519,12 @@ const Nosotros = () => {
                 </div>
               </div>
             </div>
+            </Reveal>
           </div>
 
           {/* Sub-sección: El Equipo y Áreas de Respaldo con Fotos Reales del Equipo */}
           <div className="mt-20">
-            <div className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
+            <Reveal direction="up" className="flex flex-col md:flex-row md:items-end justify-between mb-10 gap-4">
               <div>
                 <span className="text-xs font-extrabold uppercase tracking-wider text-costa-blue block mb-1">
                   ORGANIZACIÓN Y TALENTO HUMANO
@@ -405,37 +536,26 @@ const Nosotros = () => {
               <p className="text-slate-600 text-sm sm:text-base max-w-md">
                 Personal altamente calificado y capacitado bajo estándares internacionales BASC, comprometido con la seguridad de cada operación.
               </p>
-            </div>
+            </Reveal>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              <TeamCard
-                area="Operaciones y Flota"
-                badge="Conductores Calificados"
-                title="Excelencia en Ruta y Monitoreo 24/7"
-                description="Conductores profesionales y supervisores operativos dedicados al traslado seguro y control satelital continuo de cada unidad."
-                image={equipoConductoresImg}
-                videoSrc="/assets/video-operaciones.mp4"
-              />
-              <TeamCard
-                area="Administración y Contabilidad"
-                badge="Gestión Corporativa"
-                title="Procesos Transparentes y Ágiles"
-                description="Nuestro equipo administrativo y contable acompaña a cada cliente con atención personalizada, trazabilidad documentaria y eficiencia."
-                image={equipoAdminImg}
-                videoSrc="/assets/video-contabilidad.mp4"
-              />
-              <TeamCard
-                area="Capital Humano BASC"
-                badge="Familia Costa Transport"
-                title="Personal Capacitado y Comprometido"
-                description="Un equipo unido y en constante formación en seguridad vial, prevención de riesgos y cumplimiento de la Norma BASC V6-2022."
-                image={equipoCompletoImg}
-                videoSrc="/assets/video-rrhh.mp4"
-              />
+              {teamAreas.map((item, idx) => (
+                <Reveal key={item.id} direction="up" delay={idx * 120}>
+                  <TeamCard item={item} onSelectVideo={setActiveVideo} />
+                </Reveal>
+              ))}
             </div>
           </div>
         </div>
       </section>
+
+      {activeVideo && (
+        <VideoAreaModal
+          key={activeVideo.id}
+          item={activeVideo}
+          onClose={() => setActiveVideo(null)}
+        />
+      )}
     </>
   );
 };

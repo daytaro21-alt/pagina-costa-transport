@@ -11,6 +11,7 @@ import {
   Briefcase
 } from 'lucide-react';
 import logoImg from '../assets/Logo.png';
+import { enviarRegistroASheets, fechaHoraPeru } from '../config/sheets';
 
 const INITIAL_FORM = {
   tipoDocumento: 'DNI',
@@ -38,6 +39,12 @@ const generarCodigoLocal = () => {
   return `LR-${y}${m}${d}-${rand}`;
 };
 
+const FECHA_HOY = new Date().toLocaleDateString('es-PE', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric'
+});
+
 const LibroReclamaciones = ({ isOpen, onClose }) => {
   const [formData, setFormData] = useState(INITIAL_FORM);
   const [status, setStatus] = useState('idle'); // idle | sending | success
@@ -58,11 +65,7 @@ const LibroReclamaciones = ({ isOpen, onClose }) => {
 
   if (!isOpen) return null;
 
-  const fechaActual = new Date().toLocaleDateString('es-PE', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric'
-  });
+  const fechaActual = FECHA_HOY;
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -76,43 +79,19 @@ const LibroReclamaciones = ({ isOpen, onClose }) => {
     e.preventDefault();
     setStatus('sending');
 
-    let codigoHoja = generarCodigoLocal();
-    let fechaRegistro = new Date().toLocaleString('es-PE', { timeZone: 'America/Lima' });
-    let savedViaBackend = false;
+    const codigoHoja = generarCodigoLocal();
+    const fechaRegistro = fechaHoraPeru();
 
     try {
-      const apiBase = (import.meta.env.VITE_API_URL || 'http://localhost:3001').replace(/\/$/, '');
-      const res = await fetch(`${apiBase}/api/reclamaciones`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+      await enviarRegistroASheets({
+        tipoRegistro: 'reclamacion',
+        codigo: codigoHoja,
+        fecha: fechaRegistro,
+        estado: 'Pendiente (15 días hábiles)',
+        ...formData
       });
-      if (res.ok) {
-        const json = await res.json();
-        if (json?.data?.codigo) codigoHoja = json.data.codigo;
-        if (json?.data?.fecha) fechaRegistro = json.data.fecha;
-        savedViaBackend = true;
-      }
     } catch {
-      // Si el backend no responde, intentamos el webhook directo si existe
-    }
-
-    if (!savedViaBackend && import.meta.env.VITE_SHEETS_WEBHOOK_URL) {
-      try {
-        await fetch(import.meta.env.VITE_SHEETS_WEBHOOK_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({
-            tipoRegistro: 'reclamacion',
-            codigo: codigoHoja,
-            fecha: fechaRegistro,
-            ...formData
-          })
-        });
-      } catch {
-        // Continuamos mostrando constancia al usuario
-      }
+      // Continuamos mostrando constancia imprimible al usuario
     }
 
     setRegistroConfirmado({
@@ -138,7 +117,7 @@ const LibroReclamaciones = ({ isOpen, onClose }) => {
       aria-labelledby="libro-reclamaciones-title"
     >
       <div
-        className="bg-white rounded-3xl shadow-2xl border border-slate-200 w-full max-w-4xl max-h-[92vh] flex flex-col overflow-hidden my-auto"
+        className="bg-white rounded-3xl shadow-2xl border border-slate-200 w-full max-w-4xl max-h-[92vh] flex flex-col overflow-hidden my-auto animate-modal-in"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Cabecera Corporativa del Libro */}

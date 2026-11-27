@@ -6,11 +6,11 @@ import {
   Globe2,
   CheckCircle2,
   ChevronDown,
-  ChevronUp,
-  Award
+  ChevronUp
 } from 'lucide-react';
 import logoImg from '../assets/Logo.png';
 import bascLogo from '../assets/basc.png';
+import Reveal from './Reveal';
 
 const pillars = [
   {
@@ -50,7 +50,7 @@ const PoliticaSeguridad = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Encabezado */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 text-sky-300 px-4 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider mb-4">
             <ShieldCheck size={15} className="text-emerald-400" />
             <span>Sistema de Gestión en Control y Seguridad • BASC V6-2022</span>
@@ -61,31 +61,30 @@ const PoliticaSeguridad = () => {
           <p className="mt-4 text-base sm:text-lg text-slate-300">
             Nuestro compromiso inquebrantable con la integridad, trazabilidad y seguridad en cada eslabón de la cadena logística nacional e internacional.
           </p>
-        </div>
+        </Reveal>
 
         {/* 4 Pilares de Seguridad */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-14">
           {pillars.map((pillar, idx) => {
             const Icon = pillar.icon;
             return (
-              <div
-                key={idx}
-                className="bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 transition-all duration-300"
-              >
-                <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-costa-blue to-costa-blueLight flex items-center justify-center text-white mb-4 shadow-lg">
-                  <Icon size={24} />
+              <Reveal key={idx} direction="up" delay={idx * 90} className="flex">
+                <div className="w-full bg-white/5 hover:bg-white/10 backdrop-blur-md border border-white/15 rounded-2xl p-6 transition-all duration-300 hover:-translate-y-1.5">
+                  <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-costa-blue to-costa-blueLight flex items-center justify-center text-white mb-4 shadow-lg">
+                    <Icon size={24} />
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2">{pillar.title}</h3>
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                    {pillar.description}
+                  </p>
                 </div>
-                <h3 className="text-lg font-bold text-white mb-2">{pillar.title}</h3>
-                <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
-                  {pillar.description}
-                </p>
-              </div>
+              </Reveal>
             );
           })}
         </div>
 
         {/* Documento Oficial de Política de Seguridad (Rescatado íntegramente de la web antigua) */}
-        <div className="bg-white text-slate-800 rounded-3xl shadow-2xl overflow-hidden border-4 border-white/20">
+        <Reveal direction="scale" delay={120} className="bg-white text-slate-800 rounded-3xl shadow-2xl overflow-hidden border-4 border-white/20">
           {/* Cabecera del Documento Oficial */}
           <div className="bg-gradient-to-r from-slate-50 via-white to-slate-50 px-6 sm:px-10 py-6 border-b border-slate-200 flex flex-wrap items-center justify-between gap-6">
             <div className="flex items-center gap-4">
@@ -176,7 +175,7 @@ const PoliticaSeguridad = () => {
               </div>
             </div>
           )}
-        </div>
+        </Reveal>
       </div>
     </section>
   );

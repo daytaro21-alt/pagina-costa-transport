@@ -41,3 +41,135 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #8D1824;
 }
+
+/* ==================================================
+   Animaciones corporativas suaves (GPU accelerated)
+   ================================================== */
+@keyframes heroTextIn {
+  0% {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes slideProgress {
+  0% {
+    transform: scaleX(0);
+  }
+  100% {
+    transform: scaleX(1);
+  }
+}
+
+@keyframes modalIn {
+  0% {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes floatSubtle {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes cardFadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-hero-in {
+  animation: heroTextIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-hero-in-delay-1 {
+  animation: heroTextIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.08s both;
+}
+
+.animate-hero-in-delay-2 {
+  animation: heroTextIn 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.16s both;
+}
+
+.animate-slide-progress {
+  transform-origin: left center;
+  animation: slideProgress 6s linear forwards;
+}
+
+.animate-modal-in {
+  animation: modalIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-float-subtle {
+  animation: floatSubtle 7s ease-in-out infinite;
+}
+
+.animate-card-in {
+  animation: cardFadeIn 0.45s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Scroll reveal controlado por IntersectionObserver */
+.reveal-base {
+  opacity: 0;
+  transition-property: opacity, transform;
+  transition-duration: 700ms;
+  transition-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-up {
+  transform: translateY(24px);
+}
+
+.reveal-left {
+  transform: translateX(-28px);
+}
+
+.reveal-right {
+  transform: translateX(28px);
+}
+
+.reveal-scale {
+  transform: scale(0.96) translateY(12px);
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+/* Accesibilidad: respeta preferencia de movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  .animate-hero-in,
+  .animate-hero-in-delay-1,
+  .animate-hero-in-delay-2,
+  .animate-slide-progress,
+  .animate-modal-in,
+  .animate-float-subtle,
+  .animate-card-in {
+    animation: none !important;
+  }
+
+  .reveal-base {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}

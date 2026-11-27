@@ -75,12 +75,18 @@ const stats = [
   {
     icon: Award,
     value: '+20 Años',
+    targetNumber: 20,
+    prefix: '+',
+    suffix: ' Años',
     label: 'Liderando el transporte en Paita y todo el Perú',
     accent: 'from-costa-red to-costa-redLight'
   },
   {
     icon: Truck,
     value: '+40 Unidades',
+    targetNumber: 40,
+    prefix: '+',
+    suffix: ' Unidades',
     label: 'Flota moderna para Reefers, tolvas, cisterna y cama baja',
     accent: 'from-costa-blue to-costa-blueLight'
   },
@@ -97,6 +103,37 @@ const stats = [
     accent: 'from-costa-red to-amber-500'
   }
 ];
+
+const AnimatedCounter = ({ target, prefix = '', suffix = '' }) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    let start = null;
+    const duration = 1200;
+    let frameId;
+
+    const step = (timestamp) => {
+      if (!start) start = timestamp;
+      const progress = Math.min((timestamp - start) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(Math.round(eased * target));
+      if (progress < 1) {
+        frameId = requestAnimationFrame(step);
+      }
+    };
+
+    frameId = requestAnimationFrame(step);
+    return () => cancelAnimationFrame(frameId);
+  }, [target]);
+
+  return (
+    <>
+      {prefix}
+      {count}
+      {suffix}
+    </>
+  );
+};
 
 const Hero = () => {
   const [current, setCurrent] = useState(0);
@@ -142,8 +179,8 @@ const Hero = () => {
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full my-auto py-8 lg:py-12">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           {/* Columna Izquierda: Texto e Interacción */}
-          <div className="lg:col-span-8 text-left">
-            <div className="inline-flex items-center gap-2.5 bg-white/10 backdrop-blur-md border border-white/15 px-4 py-1.5 rounded-full mb-6 shadow-lg">
+          <div key={activeSlide.id} className="lg:col-span-8 text-left">
+            <div className="inline-flex items-center gap-2.5 bg-white/10 backdrop-blur-md border border-white/15 px-4 py-1.5 rounded-full mb-6 shadow-lg animate-hero-in">
               <span className="w-2.5 h-2.5 rounded-full bg-costa-red animate-ping" />
               <span className="w-2.5 h-2.5 rounded-full bg-costa-red -ml-5" />
               <span className="text-xs sm:text-sm font-bold tracking-wider uppercase text-sky-200">
@@ -151,19 +188,19 @@ const Hero = () => {
               </span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.12] tracking-tight mb-6 drop-shadow-sm">
+            <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.12] tracking-tight mb-6 drop-shadow-sm animate-hero-in">
               {activeSlide.title}{' '}
               <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#5ec2eb] via-sky-200 to-white">
                 {activeSlide.highlight}
               </span>
             </h1>
 
-            <p className="text-base sm:text-lg lg:text-xl text-slate-200/95 mb-8 max-w-2xl leading-relaxed font-normal">
+            <p className="text-base sm:text-lg lg:text-xl text-slate-200/95 mb-8 max-w-2xl leading-relaxed font-normal animate-hero-in-delay-1">
               {activeSlide.description}
             </p>
 
             {/* Pills de atributos del slide actual */}
-            <div className="flex flex-wrap gap-2.5 mb-9">
+            <div className="flex flex-wrap gap-2.5 mb-9 animate-hero-in-delay-2">
               {activeSlide.pills.map((pill) => (
                 <span
                   key={pill}
@@ -206,7 +243,7 @@ const Hero = () => {
 
           {/* Columna Derecha: Tarjeta Flotante de Certificaciones Reales + Miniaturas */}
           <div className="lg:col-span-4 flex flex-col items-start lg:items-end">
-            <div className="w-full max-w-sm bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 shadow-2xl text-white">
+            <div className="w-full max-w-sm bg-white/10 backdrop-blur-xl border border-white/20 rounded-2xl p-6 shadow-2xl text-white lg:animate-float-subtle">
               <div className="flex items-center justify-between pb-4 mb-4 border-b border-white/15">
                 <div>
                   <span className="text-[11px] uppercase tracking-widest text-sky-300 font-bold block">
@@ -298,6 +335,14 @@ const Hero = () => {
                     </button>
                   </div>
                 </div>
+
+                {/* Barra sutil de progreso del carrusel */}
+                <div className="mt-3 h-1 w-full bg-white/10 rounded-full overflow-hidden">
+                  <div
+                    key={current}
+                    className="h-full bg-gradient-to-r from-costa-redLight to-[#5ec2eb] animate-slide-progress"
+                  />
+                </div>
               </div>
             </div>
           </div>
@@ -312,7 +357,8 @@ const Hero = () => {
             return (
               <div
                 key={idx}
-                className="group bg-white/10 hover:bg-white/15 backdrop-blur-md border border-white/15 rounded-2xl p-5 flex items-start gap-4 transition-all duration-300"
+                style={{ animationDelay: `${idx * 90}ms` }}
+                className="group bg-white/10 hover:bg-white/15 backdrop-blur-md border border-white/15 rounded-2xl p-5 flex items-start gap-4 transition-all duration-300 hover:-translate-y-1 animate-card-in"
               >
                 <div
                   className={`w-12 h-12 rounded-xl bg-gradient-to-br ${item.accent} flex items-center justify-center text-white shrink-0 shadow-lg group-hover:scale-110 transition-transform`}
@@ -321,7 +367,15 @@ const Hero = () => {
                 </div>
                 <div>
                   <div className="text-2xl font-extrabold text-white tracking-tight">
-                    {item.value}
+                    {item.targetNumber ? (
+                      <AnimatedCounter
+                        target={item.targetNumber}
+                        prefix={item.prefix}
+                        suffix={item.suffix}
+                      />
+                    ) : (
+                      item.value
+                    )}
                   </div>
                   <p className="text-xs text-slate-300 leading-snug mt-0.5">
                     {item.label}

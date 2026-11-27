@@ -20,6 +20,7 @@ import imgStacker from '../assets/galeria/editada-10-stacker-atardecer.jpg';
 import imgAlmacen from '../assets/galeria/editada-03-patio-reefer-alto.jpg';
 import imgGps from '../assets/galeria/editada-07-seaboard-atardecer.jpg';
 import imgSeguro from '../assets/galeria/editada-12-mack-costa.jpg';
+import Reveal from './Reveal';
 
 const serviciosData = [
   {
@@ -139,7 +140,7 @@ const Servicios = () => {
     <section id="servicios" className="py-20 lg:py-28 bg-white relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Encabezado de Sección */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6">
+        <Reveal direction="up" className="flex flex-col lg:flex-row lg:items-end justify-between mb-12 gap-6">
           <div className="max-w-2xl">
             <div className="inline-flex items-center gap-2 bg-costa-blue/10 text-costa-blue px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider mb-3">
               <img src="/isotipo.png" alt="" className="w-4 h-3.5 object-contain" />
@@ -161,7 +162,7 @@ const Servicios = () => {
                 onClick={() => setSelectedCategory(cat.id)}
                 className={`px-4 py-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200 ${
                   selectedCategory === cat.id
-                    ? 'bg-costa-blue text-white shadow-md'
+                    ? 'bg-costa-blue text-white shadow-md scale-[1.02]'
                     : 'text-slate-600 hover:text-costa-blue hover:bg-white/60'
                 }`}
               >
@@ -169,17 +170,18 @@ const Servicios = () => {
               </button>
             ))}
           </div>
-        </div>
+        </Reveal>
 
         {/* Grid de Servicios */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7">
+        <div key={selectedCategory} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-7">
           {filteredServices.map((servicio, index) => {
             const Icon = servicio.icon;
             const isRed = servicio.accent === 'costa-red';
             return (
               <div
                 key={servicio.id}
-                className="group bg-white rounded-3xl border border-slate-200/90 shadow-card hover:shadow-card-hover overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1.5"
+                style={{ animationDelay: `${index * 65}ms` }}
+                className="group bg-white rounded-3xl border border-slate-200/90 shadow-card hover:shadow-card-hover overflow-hidden flex flex-col transition-all duration-300 hover:-translate-y-1.5 animate-card-in"
               >
                 {/* Imagen del servicio */}
                 <div className="relative h-52 overflow-hidden bg-slate-900">
@@ -266,7 +268,7 @@ const Servicios = () => {
         </div>
 
         {/* Banner CTA intermedio */}
-        <div className="mt-16 rounded-3xl bg-costa-mesh p-8 sm:p-10 lg:p-12 text-white shadow-2xl relative overflow-hidden">
+        <Reveal direction="scale" delay={100} className="mt-16 rounded-3xl bg-costa-mesh p-8 sm:p-10 lg:p-12 text-white shadow-2xl relative overflow-hidden">
           <div className="relative z-10 flex flex-col lg:flex-row items-center justify-between gap-8">
             <div className="max-w-2xl text-center lg:text-left">
               <span className="inline-block text-xs font-extrabold uppercase tracking-widest text-sky-300 mb-2">
@@ -297,7 +299,7 @@ const Servicios = () => {
               </a>
             </div>
           </div>
-        </div>
+        </Reveal>
       </div>
     </section>
   );

@@ -25,6 +25,7 @@ import costaTolva from '../assets/galeria/costa-tolva.jpg';
 import equipoCompleto from '../assets/galeria/equipo-completo.jpg';
 import equipoConductores from '../assets/galeria/equipo-conductores.jpg';
 import equipoAdministrativo from '../assets/galeria/equipo-administrativo.jpg';
+import Reveal from './Reveal';
 
 const categories = [
   { id: 'todos', label: 'Toda la Galería', icon: Sparkles },
@@ -217,7 +218,7 @@ const FlotaGaleria = () => {
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto mb-12">
+        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-12">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 border border-white/15 text-costa-light text-xs font-bold uppercase tracking-widest mb-3">
             <Truck size={14} className="text-costa-red" /> Respaldo Real y Propio
           </div>
@@ -227,10 +228,10 @@ const FlotaGaleria = () => {
           <p className="text-slate-300 text-lg leading-relaxed">
             Conoce de cerca nuestras unidades tractocamión, equipos especializados en operación portuaria y el equipo de profesionales que garantiza cada entrega en todo el Perú.
           </p>
-        </div>
+        </Reveal>
 
         {/* Category Filter Tabs */}
-        <div className="flex flex-wrap items-center justify-center gap-2.5 mb-12">
+        <Reveal direction="up" delay={80} className="flex flex-wrap items-center justify-center gap-2.5 mb-12">
           {categories.map((cat) => {
             const Icon = cat.icon;
             const isActive = activeCategory === cat.id;
@@ -252,15 +253,16 @@ const FlotaGaleria = () => {
               </button>
             );
           })}
-        </div>
+        </Reveal>
 
         {/* Photo Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div key={activeCategory} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredItems.map((item, idx) => (
             <div
               key={item.id}
               onClick={() => openLightbox(idx)}
-              className="group relative rounded-2xl overflow-hidden bg-slate-900 border border-white/10 shadow-lg hover:shadow-2xl hover:border-costa-blue/60 transition-all duration-300 cursor-pointer h-72"
+              style={{ animationDelay: `${Math.min(idx, 8) * 55}ms` }}
+              className="group relative rounded-2xl overflow-hidden bg-slate-900 border border-white/10 shadow-lg hover:shadow-2xl hover:border-costa-blue/60 hover:-translate-y-1 transition-all duration-300 cursor-pointer h-72 animate-card-in"
             >
               <img
                 src={item.src}
@@ -321,7 +323,7 @@ const FlotaGaleria = () => {
           </button>
 
           <div
-            className="max-w-5xl w-full bg-costa-navy border border-white/15 rounded-2xl overflow-hidden shadow-2xl"
+            className="max-w-5xl w-full bg-costa-navy border border-white/15 rounded-2xl overflow-hidden shadow-2xl animate-modal-in"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="relative bg-black flex items-center justify-center max-h-[75vh]">

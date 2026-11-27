@@ -5,12 +5,12 @@ import {
   Mail,
   Send,
   CheckCircle2,
-  Clock,
   MessageSquare,
   ExternalLink,
-  Share2,
   Building2
 } from 'lucide-react';
+import Reveal from './Reveal';
+import { enviarRegistroASheets, fechaHoraPeru } from '../config/sheets';
 
 const Contacto = () => {
   const [formData, setFormData] = useState({
@@ -37,34 +37,19 @@ const Contacto = () => {
     e.preventDefault();
     setStatus('sending');
 
-    let savedViaBackend = false;
     try {
-      const apiBase = (import.meta.env.VITE_API_URL || 'http://localhost:3001').replace(/\/$/, '');
-      const res = await fetch(`${apiBase}/api/contacto`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData)
+      await enviarRegistroASheets({
+        tipoRegistro: 'cotizacion',
+        fecha: fechaHoraPeru(),
+        nombre: formData.fname,
+        ruc: formData.ruc,
+        email: formData.email,
+        telefono: formData.phone,
+        asunto: formData.subject,
+        mensaje: formData.message
       });
-      if (res.ok) savedViaBackend = true;
     } catch {
-      // Si el backend no responde, intentamos respaldo directo si existe webhook configurado
-    }
-
-    if (!savedViaBackend && import.meta.env.VITE_SHEETS_WEBHOOK_URL) {
-      try {
-        await fetch(import.meta.env.VITE_SHEETS_WEBHOOK_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({
-            tipoRegistro: 'cotizacion',
-            fecha: new Date().toLocaleString('es-PE', { timeZone: 'America/Lima' }),
-            ...formData
-          })
-        });
-      } catch {
-        // Continuamos mostrando confirmación al usuario
-      }
+      // Mantenemos el flujo de confirmación y opción de WhatsApp
     }
 
     setStatus('success');
@@ -82,7 +67,7 @@ const Contacto = () => {
     <section id="contacto" className="py-20 lg:py-28 bg-slate-50 bg-costa-pattern relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Encabezado */}
-        <div className="text-center max-w-3xl mx-auto mb-16">
+        <Reveal direction="up" className="text-center max-w-3xl mx-auto mb-16">
           <div className="inline-flex items-center gap-2 bg-costa-red/10 text-costa-red px-3.5 py-1.5 rounded-full text-xs font-extrabold uppercase tracking-wider mb-3">
             <img src="/isotipo.png" alt="" className="w-4 h-3.5 object-contain" />
             <span>Atención Corporativa y Cotizaciones</span>
@@ -93,11 +78,11 @@ const Contacto = () => {
           <p className="mt-3 text-base sm:text-lg text-slate-600">
             Estamos listos para atender tus requerimientos de transporte de carga refrigerada, carga general, alquiler de equipos y almacenaje en Paita y todo el Perú.
           </p>
-        </div>
+        </Reveal>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           {/* Columna Izquierda: Tarjetas de Contacto Directo & Redes */}
-          <div className="lg:col-span-5 space-y-6">
+          <Reveal direction="left" className="lg:col-span-5 space-y-6">
             <div className="bg-costa-navy text-white rounded-3xl p-7 sm:p-8 shadow-xl relative overflow-hidden">
               <div className="absolute -right-10 -bottom-10 w-44 h-44 bg-costa-blue/25 rounded-full blur-2xl pointer-events-none" />
 
@@ -229,10 +214,10 @@ const Contacto = () => {
                 />
               </div>
             </div>
-          </div>
+          </Reveal>
 
           {/* Columna Derecha: Formulario de Cotización y Contacto */}
-          <div className="lg:col-span-7 bg-white rounded-3xl p-7 sm:p-10 shadow-card border border-slate-200/90">
+          <Reveal direction="right" delay={120} className="lg:col-span-7 bg-white rounded-3xl p-7 sm:p-10 shadow-card border border-slate-200/90">
             <div className="flex items-center justify-between pb-6 mb-6 border-b border-slate-100">
               <div>
                 <span className="text-xs font-extrabold uppercase tracking-wider text-costa-blue block">
@@ -428,7 +413,7 @@ const Contacto = () => {
                 </p>
               </form>
             )}
-          </div>
+          </Reveal>
         </div>
       </div>
     </section>
