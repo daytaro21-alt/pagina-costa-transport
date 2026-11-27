@@ -110,27 +110,27 @@ const LibroReclamaciones = ({ isOpen, onClose }) => {
 
   return (
     <div
-      className="fixed inset-0 z-[60] bg-costa-navy/85 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto"
+      className="fixed inset-0 z-[60] bg-costa-navy/85 backdrop-blur-sm flex items-center justify-center p-3 sm:p-6 overflow-y-auto print:static print:inset-auto print:block print:bg-white print:p-0 print:overflow-visible"
       onClick={onClose}
       role="dialog"
       aria-modal="true"
       aria-labelledby="libro-reclamaciones-title"
     >
       <div
-        className="bg-white rounded-3xl shadow-2xl border border-slate-200 w-full max-w-4xl max-h-[92vh] flex flex-col overflow-hidden my-auto animate-modal-in"
+        className="bg-white rounded-3xl shadow-2xl border border-slate-200 w-full max-w-4xl max-h-[92vh] flex flex-col overflow-hidden my-auto animate-modal-in print:max-w-none print:max-h-none print:shadow-none print:border-0 print:rounded-none print:overflow-visible print:block print:animate-none"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Cabecera Corporativa del Libro */}
-        <div className="bg-costa-navy text-white px-6 sm:px-8 py-5 flex items-center justify-between gap-4 border-b-4 border-costa-red shrink-0">
+        <div className="bg-costa-navy text-white px-6 sm:px-8 py-5 flex items-center justify-between gap-4 border-b-4 border-costa-red shrink-0 print:bg-white print:text-slate-900 print:px-0 print:py-3 print:border-b-2 print:border-slate-900">
           <div className="flex items-center gap-4">
-            <div className="w-12 h-12 rounded-2xl bg-costa-red flex items-center justify-center text-white shadow-lg shrink-0">
+            <div className="w-12 h-12 rounded-2xl bg-costa-red flex items-center justify-center text-white shadow-lg shrink-0 print:hidden">
               <BookOpen size={24} />
             </div>
             <div>
-              <span className="text-[11px] font-extrabold uppercase tracking-widest text-sky-300 block">
+              <span className="text-[11px] font-extrabold uppercase tracking-widest text-sky-300 block print:text-slate-600">
                 LEY N° 29571 — CÓDIGO DE PROTECCIÓN Y DEFENSA DEL CONSUMIDOR
               </span>
-              <h2 id="libro-reclamaciones-title" className="text-xl sm:text-2xl font-extrabold text-white">
+              <h2 id="libro-reclamaciones-title" className="text-xl sm:text-2xl font-extrabold text-white print:text-slate-900">
                 Libro de Reclamaciones Virtual
               </h2>
             </div>
@@ -140,16 +140,16 @@ const LibroReclamaciones = ({ isOpen, onClose }) => {
             type="button"
             onClick={onClose}
             aria-label="Cerrar Libro de Reclamaciones"
-            className="w-10 h-10 rounded-xl bg-white/10 hover:bg-costa-red text-white flex items-center justify-center transition-colors shrink-0"
+            className="w-10 h-10 rounded-xl bg-white/10 hover:bg-costa-red text-white flex items-center justify-center transition-colors shrink-0 print:hidden"
           >
             <X size={20} />
           </button>
         </div>
 
         {/* Contenido Scrollable */}
-        <div className="overflow-y-auto p-6 sm:p-8 space-y-6 text-slate-800">
+        <div className="overflow-y-auto p-6 sm:p-8 space-y-6 text-slate-800 print:overflow-visible print:p-0 print:pt-4 print:space-y-4">
           {/* Datos del Proveedor */}
-          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 print:bg-white print:border-slate-300 print:rounded-xl print:p-3.5 print:flex-row">
             <div className="flex items-center gap-4">
               <img src={logoImg} alt="Costa Transport E.I.R.L." className="h-9 w-auto object-contain" />
               <div className="text-xs sm:text-sm">
@@ -159,19 +159,21 @@ const LibroReclamaciones = ({ isOpen, onClose }) => {
                 </p>
               </div>
             </div>
-            <div className="sm:text-right text-xs bg-white px-3.5 py-2 rounded-xl border border-slate-200 shrink-0">
+            <div className="sm:text-right text-xs bg-white px-3.5 py-2 rounded-xl border border-slate-200 shrink-0 print:text-right print:border-slate-300">
               <span className="text-slate-500 font-semibold block">Fecha de registro</span>
-              <strong className="text-costa-blue font-extrabold capitalize">{fechaActual}</strong>
+              <strong className="text-costa-blue font-extrabold capitalize print:text-slate-900">
+                {registroConfirmado?.fecha || fechaActual}
+              </strong>
             </div>
           </div>
 
           {status === 'success' && registroConfirmado ? (
-            <div className="space-y-6">
-              <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 sm:p-8 text-center space-y-3">
-                <div className="w-16 h-16 rounded-full bg-emerald-500 text-white flex items-center justify-center mx-auto shadow-lg">
+            <div className="space-y-6 print:space-y-4">
+              <div className="bg-emerald-50 border border-emerald-200 rounded-2xl p-6 sm:p-8 text-center space-y-3 print:bg-white print:border-slate-300 print:rounded-xl print:p-4 print:space-y-2">
+                <div className="w-16 h-16 rounded-full bg-emerald-500 text-white flex items-center justify-center mx-auto shadow-lg print:hidden">
                   <CheckCircle2 size={34} />
                 </div>
-                <span className="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-extrabold uppercase tracking-wider">
+                <span className="inline-block px-3 py-1 rounded-full bg-emerald-100 text-emerald-800 text-xs font-extrabold uppercase tracking-wider print:bg-slate-100 print:text-slate-800 print:border print:border-slate-300">
                   Hoja de Reclamación Registrada
                 </span>
                 <h3 className="text-2xl font-extrabold text-slate-900">
@@ -183,11 +185,11 @@ const LibroReclamaciones = ({ isOpen, onClose }) => {
               </div>
 
               {/* Resumen de Constancia */}
-              <div className="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 space-y-4 text-sm">
-                <h4 className="font-extrabold text-slate-900 uppercase text-xs tracking-wider border-b border-slate-100 pb-2">
+              <div className="bg-white border border-slate-200 rounded-2xl p-5 sm:p-6 space-y-4 text-sm print:border-slate-300 print:rounded-xl print:p-4">
+                <h4 className="font-extrabold text-slate-900 uppercase text-xs tracking-wider border-b border-slate-100 pb-2 print:border-slate-300">
                   Constancia de Registro
                 </h4>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs sm:text-sm print:grid-cols-2">
                   <div>
                     <span className="text-slate-500 block">Consumidor:</span>
                     <strong className="text-slate-900">{registroConfirmado.nombreCompleto}</strong>
@@ -199,15 +201,36 @@ const LibroReclamaciones = ({ isOpen, onClose }) => {
                     </strong>
                   </div>
                   <div>
+                    <span className="text-slate-500 block">Correo Electrónico:</span>
+                    <strong className="text-slate-900">{registroConfirmado.email}</strong>
+                  </div>
+                  <div>
+                    <span className="text-slate-500 block">Teléfono / Celular:</span>
+                    <strong className="text-slate-900">{registroConfirmado.telefono}</strong>
+                  </div>
+                  <div className="sm:col-span-2 print:col-span-2">
+                    <span className="text-slate-500 block">Domicilio:</span>
+                    <strong className="text-slate-900">{registroConfirmado.domicilio}</strong>
+                  </div>
+                  <div>
                     <span className="text-slate-500 block">Bien Contratado:</span>
-                    <strong className="text-slate-900">{registroConfirmado.tipoBien}</strong>
+                    <strong className="text-slate-900">
+                      {registroConfirmado.tipoBien}
+                      {registroConfirmado.montoReclamado ? ` (${registroConfirmado.montoReclamado})` : ''}
+                    </strong>
                   </div>
                   <div>
                     <span className="text-slate-500 block">Tipo:</span>
-                    <strong className="text-costa-red">{registroConfirmado.tipoReclamacion}</strong>
+                    <strong className="text-costa-red print:text-slate-900">{registroConfirmado.tipoReclamacion}</strong>
                   </div>
+                  {registroConfirmado.descripcionBien && (
+                    <div className="sm:col-span-2 print:col-span-2">
+                      <span className="text-slate-500 block">Descripción del Servicio/Bien:</span>
+                      <strong className="text-slate-900">{registroConfirmado.descripcionBien}</strong>
+                    </div>
+                  )}
                 </div>
-                <div className="pt-2 border-t border-slate-100 space-y-2 text-xs sm:text-sm">
+                <div className="pt-2 border-t border-slate-100 space-y-2 text-xs sm:text-sm print:border-slate-300">
                   <div>
                     <span className="text-slate-500 font-semibold">Detalle: </span>
                     <span className="text-slate-800">{registroConfirmado.detalleReclamacion}</span>
@@ -219,7 +242,7 @@ const LibroReclamaciones = ({ isOpen, onClose }) => {
                 </div>
               </div>
 
-              <div className="flex flex-wrap justify-center gap-3 pt-2">
+              <div className="flex flex-wrap justify-center gap-3 pt-2 print:hidden">
                 <button
                   type="button"
                   onClick={() => window.print()}

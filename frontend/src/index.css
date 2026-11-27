@@ -173,3 +173,25 @@
     transition: none !important;
   }
 }
+
+/* Impresión limpia (1 sola hoja A4 para Constancia del Libro de Reclamaciones) */
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .animate-modal-in {
+    animation: none !important;
+  }
+}
