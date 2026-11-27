@@ -18,7 +18,7 @@ import imgCisterna from '../assets/galeria/costa-cisterna.jpg';
 import imgCamaBaja from '../assets/galeria/editada-02-cama-baja-noche.jpg';
 import imgStacker from '../assets/galeria/editada-10-stacker-atardecer.jpg';
 import imgAlmacen from '../assets/galeria/editada-03-patio-reefer-alto.jpg';
-import imgGps from '../assets/galeria/editada-07-seaboard-atardecer.jpg';
+import imgGps from '../assets/galeria/costa-monitoreo-gps.jpg';
 import imgSeguro from '../assets/galeria/editada-12-mack-costa.jpg';
 import Reveal from './Reveal';
 

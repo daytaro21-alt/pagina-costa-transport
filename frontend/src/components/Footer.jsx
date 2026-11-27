@@ -129,7 +129,7 @@ const Footer = ({ onOpenLibro }) => {
             {/* Enlaces a Documentos de Ética, Responsabilidad Social y Libro de Reclamaciones */}
             <div className="pt-2 space-y-2.5 text-xs">
               <a
-                href="https://drive.google.com/file/d/1xh8b4A2a5EjEXkEVFL4aYrLmXEVNjkk3/view?usp=sharing"
+                href="https://drive.google.com/file/d/1v1HHVrEXAbwdQefIX-SEzjdLdY7WBZVc/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sky-300 hover:underline flex items-center gap-1"
@@ -137,7 +137,7 @@ const Footer = ({ onOpenLibro }) => {
                 Código de Ética Empresarial <ExternalLink size={11} />
               </a>
               <a
-                href="https://drive.google.com/file/d/1xV-kvyRbSxrsWshCHskYyR8hxBXRFOu-/view?usp=sharing"
+                href="https://drive.google.com/file/d/1KXi9Yv3ruA6cLOV8pEVhrW1m4m10AAPK/view?usp=sharing"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sky-300 hover:underline flex items-center gap-1"

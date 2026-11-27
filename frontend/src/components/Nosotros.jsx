@@ -492,7 +492,7 @@ const Nosotros = () => {
                     Normativa y Transparencia:
                   </span>
                   <a
-                    href="https://drive.google.com/file/d/1xh8b4A2a5EjEXkEVFL4aYrLmXEVNjkk3/view?usp=sharing"
+                    href="https://drive.google.com/file/d/1v1HHVrEXAbwdQefIX-SEzjdLdY7WBZVc/view?usp=sharing"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-between p-2.5 rounded-xl bg-costa-blue/5 hover:bg-costa-blue text-costa-blue hover:text-white text-xs font-bold transition-colors border border-costa-blue/15"
@@ -505,7 +505,7 @@ const Nosotros = () => {
                   </a>
 
                   <a
-                    href="https://drive.google.com/file/d/1xV-kvyRbSxrsWshCHskYyR8hxBXRFOu-/view?usp=sharing"
+                    href="https://drive.google.com/file/d/1KXi9Yv3ruA6cLOV8pEVhrW1m4m10AAPK/view?usp=sharing"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center justify-between p-2.5 rounded-xl bg-costa-red/5 hover:bg-costa-red text-costa-red hover:text-white text-xs font-bold transition-colors border border-costa-red/15"
