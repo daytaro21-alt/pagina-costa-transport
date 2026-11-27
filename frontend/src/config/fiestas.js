@@ -2,7 +2,7 @@
  * Configuración del anuncio corporativo de Navidad y Año Nuevo.
  *
  * Se activa automáticamente durante la temporada festiva según la fecha
- * oficial de Perú (America/Lima) y se muestra una sola vez por sesión.
+ * oficial de Perú (America/Lima) y aparece cada vez que se carga o actualiza la página.
  *
  * Para previsualizar fuera de temporada, abre la web con: ?preview=fiestas
  */
@@ -11,6 +11,7 @@ export const FIESTAS_CONFIG = {
   // Rango automático inclusivo (mes 1-12, día 1-31): 27 de noviembre al 6 de enero
   inicio: { mes: 11, dia: 27 },
   fin: { mes: 1, dia: 6 },
+  mostrarCadaRecarga: true,
   storageKeyPrefix: 'costa_anuncio_fiestas_visto',
   previewParam: 'preview',
   previewValue: 'fiestas'
@@ -80,11 +81,12 @@ function obtenerStorageKey(date = new Date()) {
 }
 
 /**
- * Determina si el anuncio debe abrirse al ingresar a la página.
+ * Determina si el anuncio debe abrirse al ingresar o actualizar la página.
  */
 export function debeMostrarAnuncioFiestas(date = new Date()) {
   if (esVistaPreviaFiestas()) return true;
   if (!estaEnTemporadaFiestas(date)) return false;
+  if (FIESTAS_CONFIG.mostrarCadaRecarga) return true;
 
   try {
     return window.sessionStorage.getItem(obtenerStorageKey(date)) !== '1';
@@ -94,10 +96,10 @@ export function debeMostrarAnuncioFiestas(date = new Date()) {
 }
 
 /**
- * Registra que el visitante ya vio el anuncio en la sesión actual.
+ * Registra que el visitante ya vio el anuncio en la sesión actual (cuando aplica).
  */
 export function marcarAnuncioFiestasVisto(date = new Date()) {
-  if (esVistaPreviaFiestas()) return;
+  if (esVistaPreviaFiestas() || FIESTAS_CONFIG.mostrarCadaRecarga) return;
   try {
     window.sessionStorage.setItem(obtenerStorageKey(date), '1');
   } catch {

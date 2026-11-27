@@ -116,6 +116,30 @@
   }
 }
 
+@keyframes fireworkBloom {
+  0%, 100% {
+    opacity: 0.22;
+    transform: scale(0.84) rotate(0deg);
+  }
+  45% {
+    opacity: 0.82;
+    transform: scale(1.06) rotate(8deg);
+  }
+  75% {
+    opacity: 0.55;
+    transform: scale(0.98) rotate(12deg);
+  }
+}
+
+@keyframes bulbGlow {
+  0%, 100% {
+    opacity: 0.45;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
 .animate-hero-in {
   animation: heroTextIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -143,6 +167,14 @@
 
 .animate-twinkle {
   animation: twinkle 3.6s ease-in-out infinite;
+}
+
+.animate-firework-bloom {
+  animation: fireworkBloom 4.4s ease-in-out infinite;
+}
+
+.animate-bulb-glow {
+  animation: bulbGlow 2.4s ease-in-out infinite;
 }
 
 .animate-float-subtle {
@@ -192,6 +224,8 @@
   .animate-modal-in,
   .animate-backdrop-in,
   .animate-twinkle,
+  .animate-firework-bloom,
+  .animate-bulb-glow,
   .animate-float-subtle,
   .animate-card-in {
     animation: none !important;
