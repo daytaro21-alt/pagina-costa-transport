@@ -23,7 +23,6 @@ import Reveal from './Reveal';
 const teamAreas = [
   {
     id: 'operaciones',
-    area: 'Operaciones y Flota',
     badge: 'Conductores Calificados',
     title: 'Excelencia en Ruta y Monitoreo 24/7',
     description:
@@ -33,7 +32,6 @@ const teamAreas = [
   },
   {
     id: 'contabilidad',
-    area: 'Administración y Contabilidad',
     badge: 'Gestión Corporativa',
     title: 'Procesos Transparentes y Ágiles',
     description:
@@ -43,7 +41,6 @@ const teamAreas = [
   },
   {
     id: 'rrhh',
-    area: 'Capital Humano BASC',
     badge: 'Familia Costa Transport',
     title: 'Personal Capacitado y Comprometido',
     description:
