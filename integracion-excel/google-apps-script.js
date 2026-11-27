@@ -9,9 +9,11 @@
  * Además envía notificación automática por correo electrónico al registrar cada formulario.
  */
 
-const CORREO_COTIZACIONES = 'gerencia@costatransport.com.pe'; // Correos para cotizaciones (separados por coma si hay varios)
-const CORREO_RECLAMACIONES = 'legal@costatransport.com.pe';   // Correos para Libro de Reclamaciones
+const CORREO_COTIZACIONES = 'gerencia@costatransport.com.pe'; // Puedes agregar varios separados por coma: 'correo1@..., correo2@...'
+const CORREO_RECLAMACIONES = 'legal@costatransport.com.pe';   // Puedes agregar varios separados por coma: 'legal@..., gerencia@...'
 const ENVIAR_CORREOS = true; // Pon en false si solo deseas guardar en la hoja sin alertas por email
+
+const primerCorreo = (lista) => String(lista || '').split(',')[0].trim();
 
 function doPost(e) {
   try {
@@ -60,7 +62,7 @@ function doPost(e) {
       if (ENVIAR_CORREOS) {
         MailApp.sendEmail({
           to: CORREO_RECLAMACIONES,
-          replyTo: data.email || CORREO_RECLAMACIONES,
+          replyTo: data.email || primerCorreo(CORREO_RECLAMACIONES),
           subject: `[Libro de Reclamaciones] ${data.tipoReclamacion} - ${data.codigo}`,
           body:
             `Se ha registrado una nueva hoja en el Libro de Reclamaciones Virtual:\n\n` +
@@ -81,7 +83,7 @@ function doPost(e) {
         if (data.email) {
           MailApp.sendEmail({
             to: data.email,
-            replyTo: CORREO_RECLAMACIONES,
+            replyTo: primerCorreo(CORREO_RECLAMACIONES),
             subject: `Constancia Libro de Reclamaciones ${data.codigo} - COSTA TRANSPORT E.I.R.L.`,
             body:
               `Estimado(a) ${data.nombreCompleto},\n\n` +
@@ -122,7 +124,7 @@ function doPost(e) {
       if (ENVIAR_CORREOS) {
         MailApp.sendEmail({
           to: CORREO_COTIZACIONES,
-          replyTo: data.email || CORREO_COTIZACIONES,
+          replyTo: data.email || primerCorreo(CORREO_COTIZACIONES),
           subject: `[Nueva Cotización Web] ${data.nombre || data.fname} - RUC ${data.ruc}`,
           body:
             `Has recibido una nueva solicitud de cotización desde la web:\n\n` +
