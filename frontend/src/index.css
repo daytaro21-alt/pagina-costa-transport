@@ -96,6 +96,26 @@
   }
 }
 
+@keyframes backdropIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes twinkle {
+  0%, 100% {
+    opacity: 0.35;
+    transform: scale(0.92);
+  }
+  50% {
+    opacity: 0.9;
+    transform: scale(1.08);
+  }
+}
+
 .animate-hero-in {
   animation: heroTextIn 0.65s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
@@ -115,6 +135,14 @@
 
 .animate-modal-in {
   animation: modalIn 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.animate-backdrop-in {
+  animation: backdropIn 0.22s ease-out both;
+}
+
+.animate-twinkle {
+  animation: twinkle 3.6s ease-in-out infinite;
 }
 
 .animate-float-subtle {
@@ -162,6 +190,8 @@
   .animate-hero-in-delay-2,
   .animate-slide-progress,
   .animate-modal-in,
+  .animate-backdrop-in,
+  .animate-twinkle,
   .animate-float-subtle,
   .animate-card-in {
     animation: none !important;

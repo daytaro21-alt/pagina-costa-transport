@@ -9,9 +9,12 @@ import PoliticaSeguridad from './components/PoliticaSeguridad';
 import Contacto from './components/Contacto';
 import Footer from './components/Footer';
 import LibroReclamaciones from './components/LibroReclamaciones';
+import AnuncioFiestas from './components/AnuncioFiestas';
 
 function App() {
-  const [isLibroOpen, setIsLibroOpen] = useState(false);
+  const [isLibroOpen, setIsLibroOpen] = useState(
+    () => typeof window !== 'undefined' && window.location.hash === '#libro-reclamaciones'
+  );
 
   useEffect(() => {
     const checkHash = () => {
@@ -65,6 +68,7 @@ function App() {
         </a>
       </div>
 
+      <AnuncioFiestas disabled={isLibroOpen} />
       <LibroReclamaciones isOpen={isLibroOpen} onClose={handleCloseLibro} />
     </div>
   );
