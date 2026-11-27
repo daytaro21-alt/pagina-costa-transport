@@ -8,7 +8,7 @@ Ventajas:
 - **Tiempo real**: Cada envío aparece al instante como una fila nueva en las pestañas **`Cotizaciones`** y **`Libro_de_Reclamaciones`**.
 - **0 costo mensual** y nunca pierde datos (a diferencia del disco local de Render gratuito).
 - **Descarga en Excel (`.xlsx`)** con un clic desde `Archivo > Descargar > Microsoft Excel (.xlsx)`.
-- **Alertas automáticas por correo**: Avisa a `gerencia@costatransport.com.pe` (Cotizaciones) y a `legal@costatransport.com.pe` (Libro de Reclamaciones), además de enviar copia legal automática al consumidor que registró su reclamación.
+- **Alertas automáticas por correo**: Avisa a `gerencia@costatransport.com.pe` y `operaciones@costatransport.com.pe` (Cotizaciones) y a `legal@costatransport.com.pe` (Libro de Reclamaciones), además de enviar copia legal automática al consumidor que registró su reclamación.
 
 ### Pasos de configuración (toma 3 minutos):
 1. Entra a [Google Sheets](https://sheets.google.com) con la cuenta de Google de Costa Transport y crea un libro nuevo llamado **`Registros Web - Costa Transport`**.

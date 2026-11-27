@@ -9,8 +9,8 @@
  * Además envía notificación automática por correo electrónico al registrar cada formulario.
  */
 
-const CORREO_COTIZACIONES = 'gerencia@costatransport.com.pe'; // Puedes agregar varios separados por coma: 'correo1@..., correo2@...'
-const CORREO_RECLAMACIONES = 'legal@costatransport.com.pe';   // Puedes agregar varios separados por coma: 'legal@..., gerencia@...'
+const CORREO_COTIZACIONES = 'gerencia@costatransport.com.pe, operaciones@costatransport.com.pe';
+const CORREO_RECLAMACIONES = 'legal@costatransport.com.pe';
 const ENVIAR_CORREOS = true; // Pon en false si solo deseas guardar en la hoja sin alertas por email
 
 const primerCorreo = (lista) => String(lista || '').split(',')[0].trim();
