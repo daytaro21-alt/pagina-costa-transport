@@ -9,7 +9,8 @@
  * Además envía notificación automática por correo electrónico al registrar cada formulario.
  */
 
-const CORREO_NOTIFICACIONES = 'gerencia@costatransport.com.pe'; // Cambia o agrega correos separados por coma
+const CORREO_COTIZACIONES = 'gerencia@costatransport.com.pe'; // Correos para cotizaciones (separados por coma si hay varios)
+const CORREO_RECLAMACIONES = 'legal@costatransport.com.pe';   // Correos para Libro de Reclamaciones
 const ENVIAR_CORREOS = true; // Pon en false si solo deseas guardar en la hoja sin alertas por email
 
 function doPost(e) {
@@ -58,15 +59,18 @@ function doPost(e) {
 
       if (ENVIAR_CORREOS) {
         MailApp.sendEmail({
-          to: CORREO_NOTIFICACIONES,
+          to: CORREO_RECLAMACIONES,
+          replyTo: data.email || CORREO_RECLAMACIONES,
           subject: `[Libro de Reclamaciones] ${data.tipoReclamacion} - ${data.codigo}`,
           body:
             `Se ha registrado una nueva hoja en el Libro de Reclamaciones Virtual:\n\n` +
             `Código: ${data.codigo}\n` +
             `Fecha: ${data.fecha}\n` +
             `Consumidor: ${data.nombreCompleto} (${data.tipoDocumento} ${data.numeroDocumento})\n` +
+            `Domicilio: ${data.domicilio}\n` +
             `Teléfono: ${data.telefono} | Correo: ${data.email}\n` +
             `Bien Contratado: ${data.tipoBien} — ${data.descripcionBien}\n` +
+            `Monto Reclamado: ${data.montoReclamado || 'No especificado'}\n` +
             `Tipo: ${data.tipoReclamacion}\n` +
             `Detalle: ${data.detalleReclamacion}\n` +
             `Pedido: ${data.pedidoConsumidor}\n\n` +
@@ -77,6 +81,7 @@ function doPost(e) {
         if (data.email) {
           MailApp.sendEmail({
             to: data.email,
+            replyTo: CORREO_RECLAMACIONES,
             subject: `Constancia Libro de Reclamaciones ${data.codigo} - COSTA TRANSPORT E.I.R.L.`,
             body:
               `Estimado(a) ${data.nombreCompleto},\n\n` +
@@ -86,7 +91,7 @@ function doPost(e) {
               `Detalle: ${data.detalleReclamacion}\n` +
               `Pedido: ${data.pedidoConsumidor}\n\n` +
               `Daremos respuesta a su solicitud en un plazo no mayor a 15 días hábiles.\n\n` +
-              `Atentamente,\nCOSTA TRANSPORT E.I.R.L. — Paita, Perú`
+              `Atentamente,\nÁrea Legal — COSTA TRANSPORT E.I.R.L. (Paita, Perú)`
           });
         }
       }
@@ -116,7 +121,8 @@ function doPost(e) {
 
       if (ENVIAR_CORREOS) {
         MailApp.sendEmail({
-          to: CORREO_NOTIFICACIONES,
+          to: CORREO_COTIZACIONES,
+          replyTo: data.email || CORREO_COTIZACIONES,
           subject: `[Nueva Cotización Web] ${data.nombre || data.fname} - RUC ${data.ruc}`,
           body:
             `Has recibido una nueva solicitud de cotización desde la web:\n\n` +
