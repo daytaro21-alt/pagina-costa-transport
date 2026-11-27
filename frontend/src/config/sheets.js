@@ -1,6 +1,6 @@
 export const SHEETS_WEBHOOK_URL =
   import.meta.env.VITE_SHEETS_WEBHOOK_URL ||
-  'https://script.google.com/macros/s/AKfycbyjrTiVCEX5yabtL6nBunLz7YrE8TDNJmsuIZbgeDOJ35g1bkWLlhEwfCtYXAGmU--o/exec';
+  'https://script.google.com/macros/s/AKfycbyC1WGQVz5IrUm2z238dVdqTztW3vICSKFaaxWcJYK5TzJL_Wh4Ty9Mu2oUGCcsKG41zg/exec';
 
 export const fechaHoraPeru = () =>
   new Date().toLocaleString('es-PE', {
