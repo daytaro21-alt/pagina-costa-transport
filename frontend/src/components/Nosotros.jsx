@@ -8,11 +8,11 @@ import {
   ExternalLink,
   FileText
 } from 'lucide-react';
-import costaFleetImg from '../assets/galeria/costa-banner-1.jpg';
+import costaFleetImg from '../assets/galeria/editada-03-patio-reefer-alto.jpg';
 import equipoCompletoImg from '../assets/galeria/equipo-completo.jpg';
 import equipoConductoresImg from '../assets/galeria/equipo-conductores.jpg';
 import equipoAdminImg from '../assets/galeria/equipo-administrativo.jpg';
-import flotaColumbiaImg from '../assets/galeria/flota-columbia.jpg';
+import flotaMackImg from '../assets/galeria/editada-04-mack-plataforma.jpg';
 import bascLogo from '../assets/basc.png';
 import premioLogo from '../assets/premio-empresa.jpg';
 
@@ -126,8 +126,8 @@ const Nosotros = () => {
                 </div>
                 <div className="col-span-6 rounded-2xl overflow-hidden shadow-lg border-2 border-white relative z-10">
                   <img
-                    src={flotaColumbiaImg}
-                    alt="Tractocamiones Freightliner Costa Transport"
+                    src={flotaMackImg}
+                    alt="Tractocamión Mack Costa Transport E.I.R.L."
                     className="w-full h-44 object-cover hover:scale-105 transition-transform duration-500"
                   />
                 </div>

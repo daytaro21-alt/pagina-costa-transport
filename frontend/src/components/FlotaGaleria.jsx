@@ -1,29 +1,30 @@
 import React, { useState } from 'react';
 import { Truck, Users, ShieldCheck, ZoomIn, X, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react';
 
+import editada01 from '../assets/galeria/editada-01-chiquita-reefer.jpg';
+import editada02 from '../assets/galeria/editada-02-cama-baja-noche.jpg';
+import editada03 from '../assets/galeria/editada-03-patio-reefer-alto.jpg';
+import editada04 from '../assets/galeria/editada-04-mack-plataforma.jpg';
+import editada05 from '../assets/galeria/editada-05-cronos-reefer.jpg';
+import editada06 from '../assets/galeria/editada-06-mack-maersk.jpg';
+import editada07 from '../assets/galeria/editada-07-seaboard-atardecer.jpg';
+import editada08 from '../assets/galeria/editada-08-stacker-dia.jpg';
+import editada09 from '../assets/galeria/editada-09-flota-seaco.jpg';
+import editada10 from '../assets/galeria/editada-10-stacker-atardecer.jpg';
+import editada11 from '../assets/galeria/editada-11-chiquita-flota.jpg';
+import editada12 from '../assets/galeria/editada-12-mack-costa.jpg';
+
 import flotaPanoramica from '../assets/galeria/flota-panoramica.jpg';
-import flotaMackReefer from '../assets/galeria/flota-mack-reefer.jpg';
-import flotaMackFrontal from '../assets/galeria/flota-mack-frontal.jpg';
 import flotaPatioPaita from '../assets/galeria/flota-patio-paita.jpg';
 import flotaAlineada1 from '../assets/galeria/flota-alineada-1.jpg';
 import flotaAlineada2 from '../assets/galeria/flota-alineada-2.jpg';
-import flotaColumbia from '../assets/galeria/flota-columbia.jpg';
-import costaVolvoFlota from '../assets/galeria/costa-volvo-flota.jpg';
-import costaVolvoBasc from '../assets/galeria/costa-volvo-basc.jpg';
-import costaPremioFlota from '../assets/galeria/costa-premio-flota.jpg';
 
-import costaStacker from '../assets/galeria/costa-stacker.jpg';
-import costaReeferGenset from '../assets/galeria/costa-reefer-genset.jpg';
 import costaCisterna from '../assets/galeria/costa-cisterna.jpg';
 import costaTolva from '../assets/galeria/costa-tolva.jpg';
-import costaGpsFlota from '../assets/galeria/costa-gps-flota.jpg';
-import costaSegurosFlota from '../assets/galeria/costa-seguros-flota.jpg';
 
 import equipoCompleto from '../assets/galeria/equipo-completo.jpg';
 import equipoConductores from '../assets/galeria/equipo-conductores.jpg';
 import equipoAdministrativo from '../assets/galeria/equipo-administrativo.jpg';
-import costaEquipo1 from '../assets/galeria/costa-equipo-1.jpg';
-import costaEquipoBanner from '../assets/galeria/costa-equipo-banner.jpg';
 
 const categories = [
   { id: 'todos', label: 'Toda la Galería', icon: Sparkles },
@@ -35,26 +36,27 @@ const categories = [
 const galleryItems = [
   {
     id: 1,
-    src: flotaPanoramica,
-    title: 'Flota propia en patio operativo de Paita',
-    subtitle: 'Tractocamiones americanos listos para despacho nacional',
+    src: editada06,
+    title: 'Tractocamión Mack con Contenedor Reefer 40\'',
+    subtitle: 'Especialistas en cadena de frío y exportación portuaria desde Paita',
     category: 'flota',
     featured: true,
   },
   {
     id: 2,
-    src: flotaMackReefer,
-    title: 'Tractocamión Mack con Contenedor Reefer 40\'',
-    subtitle: 'Especialistas en cadena de frío y exportación portuaria',
-    category: 'flota',
+    src: editada10,
+    title: 'Maniobras con Reach Stacker Terex al Atardecer',
+    subtitle: 'Operaciones continuas de izaje, apilamiento y despacho de contenedores',
+    category: 'operaciones',
     featured: true,
   },
   {
     id: 3,
-    src: costaStacker,
-    title: 'Maniobras con Reach Stacker en Terminal',
-    subtitle: 'Operaciones ágiles de apilamiento y despacho de contenedores',
-    category: 'operaciones',
+    src: editada11,
+    title: 'Flota de Contenedores Refrigerados en Base Paita',
+    subtitle: 'Unidades propias listas para el traslado de carga hidrobiológica y agroindustrial',
+    category: 'flota',
+    featured: true,
   },
   {
     id: 4,
@@ -66,30 +68,30 @@ const galleryItems = [
   },
   {
     id: 5,
-    src: costaReeferGenset,
-    title: 'Transporte Refrigerado con Generador Underslung',
-    subtitle: 'Suministro eléctrico continuo para contenedores Reefer',
+    src: editada02,
+    title: 'Transporte Especializado Nocturno en Plataformas',
+    subtitle: 'Operatividad las 24 horas para carga pesada, maquinaria y carga suelta',
     category: 'operaciones',
   },
   {
     id: 6,
-    src: costaCisterna,
-    title: 'Unidades Cisterna de Gran Capacidad',
-    subtitle: 'Transporte especializado de líquidos bajo estrictos protocolos de seguridad',
-    category: 'operaciones',
-  },
-  {
-    id: 7,
-    src: flotaPatioPaita,
-    title: 'Unidades Freightliner y Mack en Base Paita',
-    subtitle: 'Mantenimiento preventivo riguroso y disponibilidad 24/7',
+    src: editada04,
+    title: 'Tractocamión Mack — Unidad de Plataforma',
+    subtitle: 'Mantenimiento preventivo riguroso e imagen corporativa impecable',
     category: 'flota',
   },
   {
+    id: 7,
+    src: editada08,
+    title: 'Carga y Descarga con Reach Stacker Terex',
+    subtitle: 'Maniobras seguras en nuestro patio de contenedores y carga suelta',
+    category: 'operaciones',
+  },
+  {
     id: 8,
-    src: costaTolva,
-    title: 'Semirremolques Tolva para Carga a Granel',
-    subtitle: 'Soluciones eficientes para el sector agroindustrial, minero y construcción',
+    src: editada03,
+    title: 'Patio Operativo y Almacén de Contenedores en Paita',
+    subtitle: 'Amplia capacidad para almacenamiento de contenedores, tuberías y carga suelta',
     category: 'operaciones',
   },
   {
@@ -103,85 +105,85 @@ const galleryItems = [
     id: 10,
     src: equipoAdministrativo,
     title: 'Equipo de Gestión, Operaciones y Atención al Cliente',
-    subtitle: 'Coordinación logística permanente en Paita y Lima',
+    subtitle: 'Coordinación logística permanente en Paita y rutas nacionales',
     category: 'equipo',
   },
   {
     id: 11,
+    src: editada07,
+    title: 'Monitoreo Satelital GPS 24/7 en Ruta',
+    subtitle: 'Control de ruta, temperatura y seguridad en operaciones diurnas y nocturnas',
+    category: 'operaciones',
+  },
+  {
+    id: 12,
+    src: editada01,
+    title: 'Transporte Refrigerado con Generador Underslung',
+    subtitle: 'Suministro eléctrico continuo para mantener la temperatura exacta',
+    category: 'flota',
+  },
+  {
+    id: 13,
+    src: editada12,
+    title: 'Unidad Mack — Comercio Exterior Certificado BASC',
+    subtitle: 'Trazabilidad y control de seguridad en toda la cadena logística',
+    category: 'flota',
+  },
+  {
+    id: 14,
+    src: editada09,
+    title: 'Flota Alineada de Contenedores Reefer 40 Pies',
+    subtitle: 'Disponibilidad permanente para campañas de exportación en el norte del país',
+    category: 'flota',
+  },
+  {
+    id: 15,
+    src: editada05,
+    title: 'Despacho de Carga Refrigerada en Patio Propio',
+    subtitle: 'Inspección pre-operativa antes de cada servicio a nivel nacional',
+    category: 'flota',
+  },
+  {
+    id: 16,
+    src: costaCisterna,
+    title: 'Unidades Cisterna de Gran Capacidad',
+    subtitle: 'Transporte especializado de líquidos bajo estrictos protocolos de seguridad',
+    category: 'operaciones',
+  },
+  {
+    id: 17,
+    src: costaTolva,
+    title: 'Semirremolques Tolva para Carga a Granel',
+    subtitle: 'Soluciones eficientes para el sector agroindustrial, minero y construcción',
+    category: 'operaciones',
+  },
+  {
+    id: 18,
+    src: flotaPanoramica,
+    title: 'Flota Propia en Patio Operativo de Paita',
+    subtitle: 'Tractocamiones americanos listos para despacho nacional',
+    category: 'flota',
+  },
+  {
+    id: 19,
     src: flotaAlineada1,
     title: 'Línea de Tractocamiones Freightliner Columbia',
     subtitle: 'Potencia y confiabilidad en rutas de costa, sierra y selva',
     category: 'flota',
   },
   {
-    id: 12,
-    src: flotaMackFrontal,
-    title: 'Unidad Mack — Transporte de Contenedores',
-    subtitle: 'Equipamiento moderno para operaciones de comercio exterior',
-    category: 'flota',
-  },
-  {
-    id: 13,
-    src: costaVolvoFlota,
-    title: 'Flota Volvo FH y Freightliner en Ruta',
-    subtitle: 'Más de 18 años transportando el progreso del Perú',
-    category: 'flota',
-  },
-  {
-    id: 14,
-    src: costaVolvoBasc,
-    title: 'Operaciones Certificadas con Estándares BASC',
-    subtitle: 'Trazabilidad y control de seguridad en toda la cadena logística',
-    category: 'operaciones',
-  },
-  {
-    id: 15,
-    src: flotaAlineada2,
-    title: 'Patio de Maniobras Zona Industrial II — Paita',
-    subtitle: 'Infraestructura propia de 5,000 m² cercana al Puerto de Paita',
-    category: 'flota',
-  },
-  {
-    id: 16,
-    src: costaGpsFlota,
-    title: 'Monitoreo Satelital GPS en Tiempo Real',
-    subtitle: 'Control de ruta, velocidad y geocercas las 24 horas del día',
-    category: 'operaciones',
-  },
-  {
-    id: 17,
-    src: flotaColumbia,
-    title: 'Unidades Listas para Embarque',
-    subtitle: 'Inspección pre-operativa antes de cada servicio nacional',
-    category: 'flota',
-  },
-  {
-    id: 18,
-    src: costaPremioFlota,
-    title: 'Reconocimiento a la Excelencia Operativa',
-    subtitle: 'Empresa Peruana del Año en el sector transporte de carga',
-    category: 'flota',
-  },
-  {
-    id: 19,
-    src: costaSegurosFlota,
-    title: 'Cobertura Integral de Seguros',
-    subtitle: 'Pólizas de carga y responsabilidad civil para total respaldo del cliente',
-    category: 'operaciones',
-  },
-  {
     id: 20,
-    src: costaEquipo1,
-    title: 'Compromiso y Vocación de Servicio',
-    subtitle: 'Un equipo humano unido por la seguridad y la puntualidad',
-    category: 'equipo',
+    src: flotaAlineada2,
+    title: 'Patio de Maniobras — Base Operativa Paita',
+    subtitle: 'Infraestructura propia cercana al Puerto de Paita',
+    category: 'flota',
   },
   {
     id: 21,
-    src: costaEquipoBanner,
-    title: 'Liderazgo Logístico en el Norte del País',
-    subtitle: 'Atención personalizada desde nuestras sedes de Paita y Lima',
-    category: 'equipo',
+    src: flotaPatioPaita,
+    title: 'Unidades Freightliner y Mack en Base Paita',
+    subtitle: 'Mantenimiento preventivo riguroso y disponibilidad 24/7',
+    category: 'flota',
   },
 ];
 

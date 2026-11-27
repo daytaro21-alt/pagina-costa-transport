@@ -62,8 +62,8 @@ const Navbar = () => {
           <div className="flex flex-wrap items-center gap-4 md:gap-6">
             <span className="flex items-center gap-1.5 text-slate-300">
               <MapPin size={13} className="text-costa-redLight shrink-0" />
-              <span className="hidden sm:inline">C.C. San Francisco de la Buena Esperanza Mz. H Lt. S/N,</span>
-              <strong className="text-white font-semibold">Paita - Piura</strong>
+              <span className="hidden sm:inline">Car. Panamericana Km. 3.5 C.C. San Francisco de la Buena Esperanza (a 700 mts Cruce Tortuga),</span>
+              <strong className="text-white font-semibold">Piura - Paita - Paita</strong>
             </span>
 
             <a

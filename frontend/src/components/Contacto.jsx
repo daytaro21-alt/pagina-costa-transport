@@ -15,6 +15,7 @@ import {
 const Contacto = () => {
   const [formData, setFormData] = useState({
     fname: '',
+    ruc: '',
     email: '',
     phone: '',
     subject: 'Transporte de Carga Refrigerada (Reefer)',
@@ -24,6 +25,11 @@ const Contacto = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
+    if (name === 'ruc') {
+      const onlyDigits = value.replace(/\D/g, '').slice(0, 11);
+      setFormData((prev) => ({ ...prev, ruc: onlyDigits }));
+      return;
+    }
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
@@ -31,22 +37,41 @@ const Contacto = () => {
     e.preventDefault();
     setStatus('sending');
 
+    let savedViaBackend = false;
     try {
       const apiBase = (import.meta.env.VITE_API_URL || 'http://localhost:3001').replace(/\/$/, '');
-      await fetch(`${apiBase}/api/contacto`, {
+      const res = await fetch(`${apiBase}/api/contacto`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData)
       });
+      if (res.ok) savedViaBackend = true;
     } catch {
-      // Si el backend local no está encendido, igual procesamos la solicitud en el frontend
+      // Si el backend no responde, intentamos respaldo directo si existe webhook configurado
+    }
+
+    if (!savedViaBackend && import.meta.env.VITE_SHEETS_WEBHOOK_URL) {
+      try {
+        await fetch(import.meta.env.VITE_SHEETS_WEBHOOK_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({
+            tipoRegistro: 'cotizacion',
+            fecha: new Date().toLocaleString('es-PE', { timeZone: 'America/Lima' }),
+            ...formData
+          })
+        });
+      } catch {
+        // Continuamos mostrando confirmación al usuario
+      }
     }
 
     setStatus('success');
   };
 
   const sendViaWhatsApp = () => {
-    const text = `Hola Costa Transport, mi nombre es *${formData.fname || 'Cliente'}*.\n• *Teléfono:* ${formData.phone}\n• *Correo:* ${formData.email}\n• *Servicio:* ${formData.subject}\n• *Mensaje:* ${formData.message}`;
+    const text = `Hola Costa Transport, mi nombre es *${formData.fname || 'Cliente'}*.\n• *RUC:* ${formData.ruc || 'No especificado'}\n• *Teléfono:* ${formData.phone}\n• *Correo:* ${formData.email}\n• *Servicio:* ${formData.subject}\n• *Mensaje:* ${formData.message}`;
     window.open(
       `https://api.whatsapp.com/send?phone=51977882764&text=${encodeURIComponent(text)}`,
       '_blank'
@@ -94,9 +119,9 @@ const Contacto = () => {
                       Sede Principal — Paita
                     </h4>
                     <p className="text-sm sm:text-base text-white font-medium mt-0.5 leading-snug">
-                      C.C. San Francisco de la Buena Esperanza
+                      Car. Panamericana Km. 3.5 C.C. San Francisco de la Buena Esperanza
                       <br />
-                      Mz. H Lt. S/N, Paita - Piura, Perú
+                      (a 700 mts Cruce Tortuga) Piura - Paita - Paita
                     </p>
                   </div>
                 </div>
@@ -246,6 +271,7 @@ const Contacto = () => {
                       setStatus('idle');
                       setFormData({
                         fname: '',
+                        ruc: '',
                         email: '',
                         phone: '',
                         subject: 'Transporte de Carga Refrigerada (Reefer)',
@@ -278,6 +304,28 @@ const Contacto = () => {
                   </div>
 
                   <div>
+                    <label htmlFor="ruc" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                      RUC de la Empresa *
+                    </label>
+                    <input
+                      id="ruc"
+                      name="ruc"
+                      type="text"
+                      inputMode="numeric"
+                      pattern="[0-9]{11}"
+                      maxLength={11}
+                      required
+                      title="Ingresa un número de RUC válido de 11 dígitos"
+                      value={formData.ruc}
+                      onChange={handleChange}
+                      placeholder="Ej. 20601234567 (11 dígitos)"
+                      className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-costa-blue focus:border-transparent transition-all"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                  <div>
                     <label htmlFor="email" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
                       Correo Electrónico *
                     </label>
@@ -292,9 +340,7 @@ const Contacto = () => {
                       className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-costa-blue focus:border-transparent transition-all"
                     />
                   </div>
-                </div>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
                     <label htmlFor="phone" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
                       Teléfono / Celular *
@@ -310,35 +356,35 @@ const Contacto = () => {
                       className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-costa-blue focus:border-transparent transition-all"
                     />
                   </div>
+                </div>
 
-                  <div>
-                    <label htmlFor="subject" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
-                      Servicio Requerido / Asunto *
-                    </label>
-                    <select
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-costa-blue focus:border-transparent transition-all"
-                    >
-                      <option value="Transporte de Carga Refrigerada (Reefer)">
-                        Transporte de Carga Refrigerada (Genset / Reefer)
-                      </option>
-                      <option value="Transporte en Tolvas, Cama Baja o Cisterna">
-                        Transporte en Tolvas, Cama Baja o Cisterna
-                      </option>
-                      <option value="Alquiler de Reach Stacker / Montacargas / Reefers 40'">
-                        Alquiler de Reach Stacker / Montacargas / Reefers 40&apos;
-                      </option>
-                      <option value="Almacén de Tuberías y Contenedores">
-                        Almacén de Tuberías y Contenedores
-                      </option>
-                      <option value="Consulta General / Otro">
-                        Consulta General / Otro
-                      </option>
-                    </select>
-                  </div>
+                <div>
+                  <label htmlFor="subject" className="block text-xs font-bold uppercase tracking-wider text-slate-700 mb-2">
+                    Servicio Requerido / Asunto *
+                  </label>
+                  <select
+                    id="subject"
+                    name="subject"
+                    value={formData.subject}
+                    onChange={handleChange}
+                    className="w-full px-4 py-3.5 rounded-xl bg-slate-50 border border-slate-200 text-slate-900 text-sm focus:bg-white focus:outline-none focus:ring-2 focus:ring-costa-blue focus:border-transparent transition-all"
+                  >
+                    <option value="Transporte de Carga Refrigerada (Reefer)">
+                      Transporte de Carga Refrigerada (Genset / Reefer)
+                    </option>
+                    <option value="Transporte en Tolvas, Cama Baja o Cisterna">
+                      Transporte en Tolvas, Cama Baja o Cisterna
+                    </option>
+                    <option value="Alquiler de Contenedores Refrigerados (Reefers) de 40' y Reach Stacker">
+                      Alquiler de Contenedores Refrigerados (Reefers) de 40&apos; y Reach Stacker
+                    </option>
+                    <option value="Almacén de Contenedores, Tuberías y Carga Suelta">
+                      Almacén de Contenedores, Tuberías y Carga Suelta
+                    </option>
+                    <option value="Consulta General / Otro">
+                      Consulta General / Otro
+                    </option>
+                  </select>
                 </div>
 
                 <div>

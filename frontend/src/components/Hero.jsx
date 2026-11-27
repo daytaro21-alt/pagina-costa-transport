@@ -10,10 +10,10 @@ import {
   CheckCircle2,
   PhoneCall
 } from 'lucide-react';
-import slidePanoramica from '../assets/galeria/flota-panoramica.jpg';
-import slideMackReefer from '../assets/galeria/flota-mack-reefer.jpg';
-import slideStacker from '../assets/galeria/costa-stacker.jpg';
-import slideCisterna from '../assets/galeria/costa-cisterna.jpg';
+import slideMackMaersk from '../assets/galeria/editada-06-mack-maersk.jpg';
+import slideChiquitaFlota from '../assets/galeria/editada-11-chiquita-flota.jpg';
+import slideStackerAtardecer from '../assets/galeria/editada-10-stacker-atardecer.jpg';
+import slideCamaBajaNoche from '../assets/galeria/editada-02-cama-baja-noche.jpg';
 import slideEquipo from '../assets/galeria/equipo-completo.jpg';
 import bascLogo from '../assets/basc.png';
 import premioLogo from '../assets/premio-empresa.jpg';
@@ -21,7 +21,7 @@ import premioLogo from '../assets/premio-empresa.jpg';
 const slides = [
   {
     id: 1,
-    image: slidePanoramica,
+    image: slideMackMaersk,
     tag: 'FLOTA MODERNA PROPIA • +40 UNIDADES',
     title: 'Líderes en Transporte de Carga Pesada y',
     highlight: 'Contenedores Refrigerados',
@@ -31,7 +31,7 @@ const slides = [
   },
   {
     id: 2,
-    image: slideMackReefer,
+    image: slideChiquitaFlota,
     tag: 'CADENA DE FRÍO GARANTIZADA',
     title: 'Especialistas en Carga Refrigerada con',
     highlight: 'Equipos Genset y Clip-On',
@@ -41,17 +41,17 @@ const slides = [
   },
   {
     id: 3,
-    image: slideStacker,
+    image: slideStackerAtardecer,
     tag: 'MAQUINARIA PORTUARIA Y ALMACENAJE',
-    title: 'Alquiler de Reach Stacker, Montacargas y',
+    title: 'Alquiler de Contenedores Reefers, Reach Stacker y',
     highlight: 'Almacén en Paita',
     description:
-      'Disponibilidad inmediata de maquinaria Terex Reach Stacker, contenedores Reefer de 40 pies y amplios almacenes acondicionados para tuberías y contenedores.',
-    pills: ['Reach Stacker Terex', 'Alquiler de Reefers 40 Pies', 'Almacén de Tuberías y Contenedores']
+      'Disponibilidad inmediata de maquinaria Terex Reach Stacker, alquiler de contenedores Reefer de 40 pies y amplios almacenes para contenedores, tuberías y carga suelta.',
+    pills: ['Reach Stacker Terex', 'Alquiler de Reefers 40 Pies', 'Almacén de Contenedores, Tuberías y Carga Suelta']
   },
   {
     id: 4,
-    image: slideCisterna,
+    image: slideCamaBajaNoche,
     tag: 'DIVERSIDAD OPERATIVA DE ALTO TONELAJE',
     title: 'Transporte en Tolvas, Cama Baja,',
     highlight: 'Granel y Carga Líquida',

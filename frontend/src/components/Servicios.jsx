@@ -12,14 +12,14 @@ import {
   Check,
   PhoneCall
 } from 'lucide-react';
-import imgReefer from '../assets/galeria/costa-reefer-genset.jpg';
+import imgReefer from '../assets/galeria/editada-01-chiquita-reefer.jpg';
 import imgTolva from '../assets/galeria/costa-tolva.jpg';
 import imgCisterna from '../assets/galeria/costa-cisterna.jpg';
-import imgCamaBaja from '../assets/servicio-camabaja.png';
-import imgStacker from '../assets/galeria/costa-stacker.jpg';
-import imgAlmacen from '../assets/servicio-almacen.jpg';
-import imgGps from '../assets/galeria/costa-gps-flota.jpg';
-import imgSeguro from '../assets/galeria/costa-seguros-flota.jpg';
+import imgCamaBaja from '../assets/galeria/editada-02-cama-baja-noche.jpg';
+import imgStacker from '../assets/galeria/editada-10-stacker-atardecer.jpg';
+import imgAlmacen from '../assets/galeria/editada-03-patio-reefer-alto.jpg';
+import imgGps from '../assets/galeria/editada-07-seaboard-atardecer.jpg';
+import imgSeguro from '../assets/galeria/editada-12-mack-costa.jpg';
 
 const serviciosData = [
   {
@@ -75,11 +75,11 @@ const serviciosData = [
     category: 'equipos',
     icon: Container,
     badge: 'Maquinaria & Reefers 40 Pies',
-    title: 'Alquiler de Contenedores Refrigerados (Reefers) de 40 Pies y Montacargas',
+    title: 'Alquiler de Contenedores Refrigerados (Reefers) de 40 Pies',
     description:
-      'Soluciones operativas de izaje y conservación con maquinaria Terex Reach Stacker, montacargas industriales y alquiler de contenedores Reefer de 40 pies.',
+      'Soluciones operativas de izaje y conservación con maquinaria Terex Reach Stacker y alquiler de contenedores refrigerados (Reefers) de 40 pies listos para operación portuaria.',
     image: imgStacker,
-    features: ['Reach Stacker Terex de alta capacidad', 'Alquiler de Reefers de 40 pies', 'Montacargas para maniobras'],
+    features: ['Alquiler de Reefers de 40 pies', 'Reach Stacker Terex de alta capacidad', 'Disponibilidad inmediata en Paita'],
     accent: 'costa-blue'
   },
   {
@@ -87,11 +87,11 @@ const serviciosData = [
     category: 'equipos',
     icon: Warehouse,
     badge: 'Infraestructura en Paita',
-    title: 'Almacén para Tuberías y Contenedores',
+    title: 'Almacén de Contenedores, Tuberías y Carga Suelta',
     description:
-      'Amplios patios y almacenes acondicionados estratégicamente en Paita para el acopio, custodia y manejo seguro de tuberías industriales y contenedores.',
+      'Amplios patios y almacenes acondicionados estratégicamente en Paita para el acopio, custodia y manejo seguro de contenedores, tuberías industriales y carga suelta.',
     image: imgAlmacen,
-    features: ['Amplia capacidad de almacenaje', 'Seguridad perimetral 24/7', 'Ubicación estratégica en Paita'],
+    features: ['Almacenaje de contenedores y carga suelta', 'Acopio seguro de tuberías industriales', 'Seguridad perimetral 24/7 en Paita'],
     accent: 'costa-red'
   },
   {

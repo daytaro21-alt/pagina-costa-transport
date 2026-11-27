@@ -4,14 +4,16 @@ import {
   Phone,
   Mail,
   ExternalLink,
-  ShieldCheck,
+  BookOpen,
   ArrowUp
 } from 'lucide-react';
 import logoImg from '../assets/Logo.png';
 import bascLogo from '../assets/basc.png';
 import premioLogo from '../assets/premio-empresa.jpg';
 
-const Footer = () => {
+const CURRENT_YEAR = new Date().getFullYear();
+
+const Footer = ({ onOpenLibro }) => {
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
@@ -85,7 +87,7 @@ const Footer = () => {
               <li>• Transporte en Tolvas y Cama Baja</li>
               <li>• Servicio de Cisterna y Carga Seca</li>
               <li>• Alquiler de Reach Stacker y Reefers 40&apos;</li>
-              <li>• Almacén de Tuberías y Contenedores</li>
+              <li>• Almacén de Contenedores, Tuberías y Carga Suelta</li>
               <li>• Monitoreo Satelital GPS 24/7</li>
             </ul>
           </div>
@@ -99,7 +101,7 @@ const Footer = () => {
               <div className="flex items-start gap-2.5">
                 <MapPin size={17} className="text-costa-redLight shrink-0 mt-0.5" />
                 <span>
-                  C.C. San Francisco de la Buena Esperanza Mz. H Lt. S/N, Paita - Piura
+                  Car. Panamericana Km. 3.5 C.C. San Francisco de la Buena Esperanza (a 700 mts Cruce Tortuga) Piura - Paita - Paita
                 </span>
               </div>
               <div className="flex items-center gap-2.5">
@@ -124,8 +126,8 @@ const Footer = () => {
               </div>
             </div>
 
-            {/* Enlaces a Documentos de Ética y Responsabilidad Social */}
-            <div className="pt-2 space-y-1.5 text-xs">
+            {/* Enlaces a Documentos de Ética, Responsabilidad Social y Libro de Reclamaciones */}
+            <div className="pt-2 space-y-2.5 text-xs">
               <a
                 href="https://drive.google.com/file/d/1xh8b4A2a5EjEXkEVFL4aYrLmXEVNjkk3/view?usp=sharing"
                 target="_blank"
@@ -142,6 +144,26 @@ const Footer = () => {
               >
                 Política de Responsabilidad Social <ExternalLink size={11} />
               </a>
+
+              <div className="pt-2">
+                <button
+                  type="button"
+                  onClick={onOpenLibro}
+                  className="w-full flex items-center gap-3 bg-white hover:bg-slate-100 text-costa-navy px-4 py-3 rounded-2xl border-2 border-costa-blue/40 shadow-lg transition-all hover:-translate-y-0.5 text-left group"
+                >
+                  <div className="w-10 h-10 rounded-xl bg-costa-blue/10 group-hover:bg-costa-blue text-costa-blue group-hover:text-white flex items-center justify-center shrink-0 transition-colors">
+                    <BookOpen size={20} />
+                  </div>
+                  <div className="leading-tight">
+                    <span className="block text-[10px] font-extrabold uppercase tracking-wider text-costa-red">
+                      INDECOPI • Ley N° 29571
+                    </span>
+                    <span className="block text-sm font-extrabold text-costa-navy">
+                      Libro de Reclamaciones
+                    </span>
+                  </div>
+                </button>
+              </div>
             </div>
           </div>
         </div>
@@ -149,7 +171,7 @@ const Footer = () => {
         {/* Barra inferior de Copyright */}
         <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
           <p>
-            © {new Date().getFullYear()} <strong className="text-white">COSTA TRANSPORT E.I.R.L.</strong> Todos los derechos reservados. Paita - Piura, Perú.
+            © {CURRENT_YEAR} <strong className="text-white">COSTA TRANSPORT E.I.R.L.</strong> Todos los derechos reservados. Paita - Piura, Perú.
           </p>
           <button
             onClick={scrollToTop}

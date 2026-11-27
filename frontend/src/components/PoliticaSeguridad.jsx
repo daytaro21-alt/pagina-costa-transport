@@ -166,10 +166,10 @@ const PoliticaSeguridad = () => {
 
                   <div className="text-center sm:text-right bg-slate-50 px-6 py-4 rounded-2xl border border-slate-200/80">
                     <div className="text-base sm:text-lg font-extrabold text-slate-900">
-                      Julio Jerry Costa de la Cruz
+                      Gerencia General
                     </div>
                     <div className="text-xs font-bold uppercase tracking-wider text-costa-blue mt-0.5">
-                      Gerente General • COSTA TRANSPORT E.I.R.L.
+                      COSTA TRANSPORT E.I.R.L.
                     </div>
                   </div>
                 </div>

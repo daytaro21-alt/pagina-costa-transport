@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { MessageCircle } from 'lucide-react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -8,8 +8,29 @@ import FlotaGaleria from './components/FlotaGaleria';
 import PoliticaSeguridad from './components/PoliticaSeguridad';
 import Contacto from './components/Contacto';
 import Footer from './components/Footer';
+import LibroReclamaciones from './components/LibroReclamaciones';
 
 function App() {
+  const [isLibroOpen, setIsLibroOpen] = useState(false);
+
+  useEffect(() => {
+    const checkHash = () => {
+      if (window.location.hash === '#libro-reclamaciones') {
+        setIsLibroOpen(true);
+      }
+    };
+    checkHash();
+    window.addEventListener('hashchange', checkHash);
+    return () => window.removeEventListener('hashchange', checkHash);
+  }, []);
+
+  const handleCloseLibro = () => {
+    setIsLibroOpen(false);
+    if (window.location.hash === '#libro-reclamaciones') {
+      window.history.replaceState(null, '', window.location.pathname + window.location.search);
+    }
+  };
+
   return (
     <div className="min-h-screen flex flex-col bg-slate-50">
       <Navbar />
@@ -23,7 +44,9 @@ function App() {
         <Contacto />
       </main>
 
-      <Footer />
+      <Footer onOpenLibro={() => setIsLibroOpen(true)} />
+
+      <LibroReclamaciones isOpen={isLibroOpen} onClose={handleCloseLibro} />
 
       {/* Botón Flotante de WhatsApp */}
       <a
