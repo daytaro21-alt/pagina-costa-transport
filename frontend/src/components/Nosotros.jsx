@@ -13,92 +13,71 @@ import {
 } from 'lucide-react';
 import costaFleetImg from '../assets/galeria/editada-03-patio-reefer-alto.jpg';
 import equipoCompletoImg from '../assets/galeria/equipo-completo.jpg';
-import equipoConductoresImg from '../assets/galeria/equipo-conductores.jpg';
-import equipoAdminImg from '../assets/galeria/equipo-administrativo.jpg';
 import flotaMackImg from '../assets/galeria/editada-04-mack-plataforma.jpg';
 import bascLogo from '../assets/basc.png';
 import premioLogo from '../assets/premio-empresa.jpg';
 import Reveal from './Reveal';
 
-const teamAreas = [
-  {
-    id: 'operaciones',
-    badge: 'Conductores Calificados',
-    title: 'Excelencia en Ruta y Monitoreo 24/7',
-    description:
-      'Conductores profesionales y supervisores operativos dedicados al traslado seguro y control satelital continuo de cada unidad.',
-    image: equipoConductoresImg,
-    videoSrc: '/videos/video-operaciones.mp4'
-  },
-  {
-    id: 'contabilidad',
-    badge: 'Gestión Corporativa',
-    title: 'Procesos Transparentes y Ágiles',
-    description:
-      'Nuestro equipo administrativo y contable acompaña a cada cliente con atención personalizada, trazabilidad documentaria y eficiencia.',
-    image: equipoAdminImg,
-    videoSrc: '/videos/video-contabilidad.mp4'
-  },
-  {
-    id: 'rrhh',
-    badge: 'Familia Costa Transport',
-    title: 'Personal Capacitado y Comprometido',
-    description:
-      'Un equipo unido y en constante formación en seguridad vial, prevención de riesgos y cumplimiento de la Norma BASC V6-2022.',
-    image: equipoCompletoImg,
-    videoSrc: '/videos/video-rrhh.mp4'
-  }
-];
+const institutionalVideo = {
+  id: 'video-institucional',
+  area: 'Video Institucional',
+  badge: 'Familia Costa Transport',
+  title: 'Conoce a Costa Transport E.I.R.L.',
+  description:
+    'Descubre de cerca nuestras operaciones, moderna flota y el equipo humano comprometido con la seguridad y excelencia bajo la Norma Internacional BASC V6-2022.',
+  image: equipoCompletoImg,
+  videoSrc: '/videos/InShot_20261127_211713690.mp4'
+};
 
-// Sub-componente para las tarjetas interactivas con reproducción de video al hacer clic
-const TeamCard = ({ item, onSelectVideo }) => {
+// Sub-componente para la tarjeta destacada con reproducción de video al hacer clic
+const TeamVideoCard = ({ item, onSelectVideo }) => {
   const { area, title, description, image, badge } = item;
 
   return (
     <button
       type="button"
       onClick={() => onSelectVideo(item)}
-      className="relative w-full h-96 rounded-2xl overflow-hidden shadow-card hover:shadow-card-hover group cursor-pointer border border-slate-200/80 text-left focus:outline-none focus:ring-2 focus:ring-costa-blue focus:ring-offset-2"
+      className="relative w-full aspect-[16/10] sm:aspect-video rounded-3xl overflow-hidden shadow-card hover:shadow-card-hover group cursor-pointer border border-slate-200/80 text-left focus:outline-none focus:ring-2 focus:ring-costa-blue focus:ring-offset-2"
     >
       {/* Imagen real de alta calidad del equipo */}
       <img
         src={image}
-        alt={area}
-        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+        alt={title}
+        className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
       />
 
       {/* Gradiente corporativo superpuesto */}
-      <div className="absolute inset-0 bg-gradient-to-t from-costa-navy via-costa-navy/50 to-costa-navy/15 opacity-90 group-hover:opacity-95 transition-opacity" />
+      <div className="absolute inset-0 bg-gradient-to-t from-costa-navy via-costa-navy/45 to-costa-navy/15 opacity-90 group-hover:opacity-95 transition-opacity" />
 
-      {/* Badge superior */}
-      <div className="absolute top-4 left-4 right-4 flex justify-between items-start gap-2">
-        <span className="inline-flex items-center gap-1.5 bg-costa-red/90 backdrop-blur-md text-white text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md leading-tight">
+      {/* Badges superiores */}
+      <div className="absolute top-4 left-4 right-4 sm:top-6 sm:left-6 sm:right-6 flex justify-between items-start gap-2">
+        <span className="inline-flex items-center gap-1.5 bg-costa-red/90 backdrop-blur-md text-white text-[11px] sm:text-xs font-bold uppercase tracking-wider px-3.5 py-1.5 rounded-full shadow-md leading-tight">
           <span className="w-1.5 h-1.5 rounded-full bg-white shrink-0" />
           {area}
         </span>
-        <span className="bg-white/15 backdrop-blur-md border border-white/20 text-white text-[11px] font-semibold px-2.5 py-1 rounded-lg shrink-0">
+        <span className="bg-white/15 backdrop-blur-md border border-white/20 text-white text-[11px] sm:text-xs font-semibold px-3 py-1.5 rounded-lg shrink-0">
           {badge}
         </span>
       </div>
 
-      {/* Botón central de Play al pasar el cursor / indicador visible */}
-      <div className="absolute inset-0 flex items-center justify-center pb-24 pointer-events-none">
-        <div className="w-14 h-14 rounded-full bg-white/20 group-hover:bg-costa-red backdrop-blur-md border-2 border-white/60 group-hover:border-white flex items-center justify-center text-white shadow-2xl transition-all duration-300 group-hover:scale-110">
-          <Play size={22} className="fill-white ml-0.5" />
+      {/* Botón central de Play */}
+      <div className="absolute inset-0 flex items-center justify-center pb-16 sm:pb-20 pointer-events-none">
+        <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-white/20 group-hover:bg-costa-red backdrop-blur-md border-2 border-white/70 group-hover:border-white flex items-center justify-center text-white shadow-2xl transition-all duration-300 group-hover:scale-110">
+          <Play size={28} className="fill-white ml-1" />
         </div>
       </div>
 
       {/* Contenido inferior */}
-      <div className="absolute inset-x-0 bottom-0 p-6 flex flex-col justify-end">
-        <div className="w-10 h-1 bg-gradient-to-r from-costa-red to-[#4aa2c3] rounded-full mb-3 transition-all duration-300 group-hover:w-20" />
-        <h3 className="text-white text-2xl font-bold tracking-tight">{title}</h3>
-        <p className="text-slate-200 text-sm mt-2 leading-relaxed">
+      <div className="absolute inset-x-0 bottom-0 p-5 sm:p-8 flex flex-col justify-end">
+        <div className="w-12 h-1 bg-gradient-to-r from-costa-red to-[#4aa2c3] rounded-full mb-3 transition-all duration-300 group-hover:w-24" />
+        <h3 className="text-white text-xl sm:text-3xl font-bold tracking-tight">{title}</h3>
+        <p className="text-slate-200 text-xs sm:text-base mt-2 leading-relaxed max-w-2xl">
           {description}
         </p>
-        <div className="text-sky-300 text-xs font-semibold mt-3 pt-3 border-t border-white/15 flex items-center justify-between gap-2">
+        <div className="text-sky-300 text-xs sm:text-sm font-semibold mt-4 pt-3 border-t border-white/15 flex items-center justify-between gap-2">
           <span className="italic">“El respaldo humano detrás de cada kilómetro.”</span>
-          <span className="inline-flex items-center gap-1 text-white bg-white/15 group-hover:bg-costa-blue px-2.5 py-1 rounded-full text-[11px] font-bold shrink-0 transition-colors">
-            <Play size={10} className="fill-current" />
+          <span className="inline-flex items-center gap-1.5 text-white bg-white/15 group-hover:bg-costa-blue px-3.5 py-1.5 rounded-full text-xs font-bold shrink-0 transition-colors">
+            <Play size={12} className="fill-current" />
             Ver video
           </span>
         </div>
@@ -535,12 +514,10 @@ const Nosotros = () => {
               </p>
             </Reveal>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {teamAreas.map((item, idx) => (
-                <Reveal key={item.id} direction="up" delay={idx * 120}>
-                  <TeamCard item={item} onSelectVideo={setActiveVideo} />
-                </Reveal>
-              ))}
+            <div className="max-w-4xl mx-auto">
+              <Reveal direction="up">
+                <TeamVideoCard item={institutionalVideo} onSelectVideo={setActiveVideo} />
+              </Reveal>
             </div>
           </div>
         </div>

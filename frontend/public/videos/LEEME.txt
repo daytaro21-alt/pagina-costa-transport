@@ -1,14 +1,10 @@
-VIDEOS INSTITUCIONALES DE LAS 3 ÁREAS — COSTA TRANSPORT E.I.R.L.
-=================================================================
+VIDEO INSTITUCIONAL — COSTA TRANSPORT E.I.R.L.
+==============================================
 
-Cuando los 3 videos estén grabados, súbelos en formato MP4 (H.264) dentro de esta carpeta
-(en desarrollo: frontend/public/videos/ | en el hosting FTP: public_html/videos/)
-con estos nombres exactos:
+El video institucional en formato MP4 (H.264) se encuentra en esta carpeta
+(en desarrollo: frontend/public/videos/ | en el hosting FTP: public_html/videos/):
 
-1. video-operaciones.mp4   -> Área: Operaciones y Flota
-2. video-contabilidad.mp4  -> Área: Administración y Contabilidad
-3. video-rrhh.mp4          -> Área: Capital Humano BASC
+- InShot_20261127_211713690.mp4 -> Video Institucional de Costa Transport E.I.R.L.
 
-No hace falta modificar ningún archivo de código: en cuanto los archivos existan en
-la carpeta /videos/, al hacer clic en cada tarjeta se reproducirá el video automáticamente
-con audio y controles completos.
+Al hacer clic en la tarjeta del video en la sección Nosotros / Identidad, se reproducirá
+automáticamente con audio y controles completos.
